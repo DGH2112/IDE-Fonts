@@ -1,0 +1,10 @@
+[Setup]
+WarnBefore=0
+WarnAfter=0
+
+[Zipping]
+Enabled=1
+ZipFile=D:\Documents\Web Page\Zips\DGHIDEFont.zip
+BasePath=D:\Documents\RAD Studio\
+ExclusionFiles=
+
