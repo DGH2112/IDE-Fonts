@@ -35,16 +35,17 @@ Type
     udFontSize: TUpDown;
     btnOK: TBitBtn;
     btnCancel: TBitBtn;
+    chkParentFont: TCheckBox;
   Strict Private
   Strict Protected
     Procedure InitialiseDlg(Const slWindowList : TStringList; Var strFontName : String;
-      Var iFontSize : Integer);
+      Var iFontSize : Integer; Var boolParentFont : Boolean);
     Procedure FinaliseDlg(Const slWindowList : TStringList; Var strFontName : String;
-      Var iFontSize : Integer);
+      Var iFontSize : Integer; Var boolParentFont : Boolean);
   Public
     { Public declarations }
     Class Function Execute(Const slWindowList : TStringList; Var strFontName : String;
-      Var iFontSize : Integer) : Boolean;
+      Var iFontSize : Integer; Var boolParentFont : Boolean) : Boolean;
   End;
 
 Implementation
@@ -56,20 +57,21 @@ Uses
 
 (**
 
-  This method displays the window list dialogue to allow the user to select the window he or she wishes
+  This method displays the window list dialogue to allow the user to select the window he or she wishes 
   the change the font size of.
 
   @precon  slWindowList must be a valid instance.
   @postcon The dialogue is displayed.
 
-  @param   slWindowList as a TStringList as a constant
-  @param   strFontName  as a String as a reference
-  @param   iFontSize    as an Integer as a reference
+  @param   slWindowList   as a TStringList as a constant
+  @param   strFontName    as a String as a reference
+  @param   iFontSize      as an Integer as a reference
+  @param   boolParentFont as a Boolean as a reference
   @return  a Boolean
 
 **)
 Class Function TfrmWindowDlg.Execute(Const slWindowList: TStringList; Var strFontName: String;
-  Var iFontSize: Integer): Boolean;
+  Var iFontSize: Integer; Var boolParentFont : Boolean): Boolean;
 
 Var
   F: TfrmWindowDlg;
@@ -78,10 +80,10 @@ Begin
   Result := False;
   F := TfrmWindowDlg.Create(Application.MainForm);
   Try
-    F.InitialiseDlg(slWindowList, strFontName, iFontSize);
+    F.InitialiseDlg(slWindowList, strFontName, iFontSize, boolParentFont);
     If F.ShowModal = mrOK Then
       Begin
-        F.FinaliseDlg(slWindowList, strFontName, iFontSize);
+        F.FinaliseDlg(slWindowList, strFontName, iFontSize, boolParentFont);
         Result := True;
       End;
   Finally
@@ -96,17 +98,19 @@ End;
   @precon  slWindowList must be a valid instance.
   @postcon The window list and font name and size parameters are updated.
 
-  @param   slWindowList as a TStringList as a constant
-  @param   strFontName  as a String as a reference
-  @param   iFontSize    as an Integer as a reference
+  @param   slWindowList   as a TStringList as a constant
+  @param   strFontName    as a String as a reference
+  @param   iFontSize      as an Integer as a reference
+  @param   boolParentFont as a Boolean as a reference
 
 **)
 Procedure TfrmWindowDlg.FinaliseDlg(Const slWindowList : TStringList; Var strFontName : String;
-  Var iFontSize : Integer);
+  Var iFontSize : Integer; Var boolParentFont : Boolean);
 var
   i: Integer;
   
 Begin
+  boolParentFont := chkParentFont.Checked;
   strFontName := cbxFontName.Text;
   iFontSize := udFontSize.Position;
   For i := 0 To slWindowList.Count - 1 Do
@@ -115,31 +119,33 @@ End;
 
 (**
 
-  This method loads the dialogue with a list of window names and class names and sets the font name and
+  This method loads the dialogue with a list of window names and class names and sets the font name and 
   size controls.
 
   @precon  slWindowList must be a valid instance.
   @postcon The dialogue is initialised.
 
-  @param   slWindowList as a TStringList as a constant
-  @param   strFontName  as a String as a reference
-  @param   iFontSize    as an Integer as a reference
+  @param   slWindowList   as a TStringList as a constant
+  @param   strFontName    as a String as a reference
+  @param   iFontSize      as an Integer as a reference
+  @param   boolParentFont as a Boolean as a reference
 
 **)
 Procedure TfrmWindowDlg.InitialiseDlg(Const slWindowList : TStringList; Var strFontName : String;
-  Var iFontSize : Integer);
+  Var iFontSize : Integer; Var boolParentFont : Boolean);
 
 Var
   i: Integer;
   ListItem: TListItem;
 
 Begin
+  chkParentFont.Checked := boolParentFont;
   For i := 0 To Screen.Fonts.Count - 1 Do
     cbxFontName.Items.Add(Screen.Fonts[i]);
+  cbxFontName.ItemIndex := cbxFontName.Items.IndexOf(strFontName);
   udFontSize.Position := iFontSize;
   lvWindowList.Items.BeginUpdate;
   Try
-    cbxFontName.ItemIndex := cbxFontName.Items.IndexOf(strFontName);
     For i := 0 To slWindowList.Count - 1 Do
       Begin
         ListItem := lvWindowList.Items.Add;

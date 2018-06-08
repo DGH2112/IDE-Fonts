@@ -87,6 +87,8 @@ Const
   strFontSizeKey = 'FontSize';
   (** An INI Section name for the Window List **)
   strWindowListINISection = 'WindowList';
+  (** An ini key for the parent font settings. **)
+  strParentFontKey = 'ParentFont';
 
 (**
 
@@ -297,7 +299,7 @@ Procedure TDGHIDEFontWizard.Execute;
 
 Begin
   LoadWindowList;
-  If TfrmWindowDlg.Execute(FWindowList, FFontName, FFontSize) Then
+  If TfrmWindowDlg.Execute(FWindowList, FFontName, FFontSize, FParentFont) Then
     Begin
       UpdateWindows;
       SaveWindowList;
@@ -399,6 +401,7 @@ Begin
   iniFile := TMemIniFile.Create(FINIFileName);
   Try
     FHasRunBefore := iniFile.ReadBool(strSetupINISection, strHasRunBeforeKey, False);
+    FParentFont := iniFile.ReadBool(strSetupINISection, strParentFontKey, True);
     FFontName := iniFile.ReadString(strSetupINISection, strFontNameKey, strDefaultFontName);
     FFontSize := iniFile.ReadInteger(strSetupINISection, strFontSizeKey, iDefaultFontSize);
   Finally
@@ -470,6 +473,7 @@ Var
 Begin
   iniFile := TMemIniFile.Create(FINIFileName);
   Try
+    iniFile.WriteBool(strSetupINISection, strParentFontKey, FParentFont);
     iniFile.WriteString(strSetupINISection, strFontNameKey, FFontName);
     iniFile.WriteInteger(strSetupINISection, strFontSizeKey, FFontSize);
     iniFile.UpdateFile;

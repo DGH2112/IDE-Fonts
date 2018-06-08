@@ -41,7 +41,7 @@ object frmWindowDlg: TfrmWindowDlg
     Left = 8
     Top = 63
     Width = 448
-    Height = 503
+    Height = 481
     Anchors = [akLeft, akTop, akRight, akBottom]
     Checkboxes = True
     Columns = <
@@ -59,6 +59,7 @@ object frmWindowDlg: TfrmWindowDlg
     RowSelect = True
     TabOrder = 0
     ViewStyle = vsReport
+    ExplicitHeight = 516
   end
   object cbxFontName: TComboBox
     Left = 8
@@ -67,7 +68,7 @@ object frmWindowDlg: TfrmWindowDlg
     Height = 24
     Style = csDropDownList
     Anchors = [akLeft, akBottom]
-    TabOrder = 1
+    TabOrder = 2
   end
   object edtFontSize: TEdit
     Left = 191
@@ -75,7 +76,7 @@ object frmWindowDlg: TfrmWindowDlg
     Width = 57
     Height = 24
     Anchors = [akLeft, akBottom]
-    TabOrder = 2
+    TabOrder = 3
     Text = '8'
   end
   object udFontSize: TUpDown
@@ -88,7 +89,7 @@ object frmWindowDlg: TfrmWindowDlg
     Min = 8
     Max = 18
     Position = 8
-    TabOrder = 3
+    TabOrder = 4
   end
   object btnOK: TBitBtn
     Left = 300
@@ -98,7 +99,7 @@ object frmWindowDlg: TfrmWindowDlg
     Anchors = [akRight, akBottom]
     Kind = bkOK
     NumGlyphs = 2
-    TabOrder = 4
+    TabOrder = 5
   end
   object btnCancel: TBitBtn
     Left = 381
@@ -108,6 +109,16 @@ object frmWindowDlg: TfrmWindowDlg
     Anchors = [akRight, akBottom]
     Kind = bkCancel
     NumGlyphs = 2
-    TabOrder = 5
+    TabOrder = 6
+  end
+  object chkParentFont: TCheckBox
+    Left = 8
+    Top = 550
+    Width = 448
+    Height = 17
+    Anchors = [akLeft, akRight, akBottom]
+    Caption = 'Update the Form Component'#39's ParentFont to True'
+    TabOrder = 1
+    ExplicitTop = 585
   end
 end
