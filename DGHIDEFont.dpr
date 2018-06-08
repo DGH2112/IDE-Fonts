@@ -25,8 +25,8 @@ Library DGHIDEFont;
 uses
   System.SysUtils,
   System.Classes,
-  DGHIDEFontSize.Wizard in 'Source\DGHIDEFontSize.Wizard.pas',
-  DGHIDEFontSize.Functions in 'Source\DGHIDEFontSize.Functions.pas';
+  DGHIDEFont.Wizard in 'Source\DGHIDEFont.Wizard.pas',
+  DGHIDEFont.Functions in 'Source\DGHIDEFont.Functions.pas';
 
 {$R *.res}
 

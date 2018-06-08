@@ -93,8 +93,8 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Source\DGHIDEFontSize.Wizard.pas"/>
-        <DCCReference Include="Source\DGHIDEFontSize.Functions.pas"/>
+        <DCCReference Include="Source\DGHIDEFont.Wizard.pas"/>
+        <DCCReference Include="Source\DGHIDEFont.Functions.pas"/>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <BuildConfiguration Include="Release">
