@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{CC11208B-7D2E-4EDE-8EA2-8AE4E7E3B57F}</ProjectGuid>
         <ProjectVersion>18.4</ProjectVersion>
-        <FrameworkType>None</FrameworkType>
+        <FrameworkType>VCL</FrameworkType>
         <MainSource>DGHIDEFont.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -55,7 +55,7 @@
         <DCC_K>false</DCC_K>
         <GenDll>true</GenDll>
         <DCC_UsePackage>VCL;RTL;DesignIDE;$(DCC_UsePackage)</DCC_UsePackage>
-        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <SanitizedProjectName>DGHIDEFont</SanitizedProjectName>
         <UsePackages>true</UsePackages>
         <VerInfo_Locale>2057</VerInfo_Locale>
@@ -109,6 +109,10 @@
         <DCCReference Include="Source\DGHIDEFont.Wizard.pas"/>
         <DCCReference Include="Source\DGHIDEFont.Functions.pas"/>
         <DCCReference Include="Source\DGHIDEFont.SplashScreen.pas"/>
+        <DCCReference Include="Source\DGHIDEFont.WindowDlg.pas">
+            <Form>frmWindowDlg</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <BuildConfiguration Include="Release">
@@ -156,6 +160,12 @@
                 </DeployFile>
                 <DeployFile LocalName="$(BDS)\Redist\osx32\libcgsqlite3.dylib" Class="DependencyModule">
                     <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\DGHIDEFont.dll" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>DGHIDEFont.dll</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -30,7 +30,8 @@ uses
   System.Classes,
   DGHIDEFont.Wizard in 'Source\DGHIDEFont.Wizard.pas',
   DGHIDEFont.Functions in 'Source\DGHIDEFont.Functions.pas',
-  DGHIDEFont.SplashScreen in 'Source\DGHIDEFont.SplashScreen.pas';
+  DGHIDEFont.SplashScreen in 'Source\DGHIDEFont.SplashScreen.pas',
+  DGHIDEFont.WindowDlg in 'Source\DGHIDEFont.WindowDlg.pas' {frmWindowDlg};
 
 {$R *.res}
 
