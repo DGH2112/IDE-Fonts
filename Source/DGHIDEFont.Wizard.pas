@@ -32,6 +32,7 @@ Type
     // IOTAMenuWizard
     Function  GetMenuText: String;
   Public
+    Constructor Create;
   End;
 
   Function InitWizard(Const BorlandIDEServices : IBorlandIDEServices; RegisterProc : TWizardRegisterProc;
@@ -48,7 +49,7 @@ Uses
   System.RTTI,
   VCL.Controls,
   VCL.Forms,
-  VCL.Dialogs;
+  VCL.Dialogs, DGHIDEFont.SplashScreen;
 
 (**
 
@@ -104,6 +105,20 @@ End;
 Procedure TDGHIDEFontSizeWizard.BeforeSave;
 
 Begin
+End;
+
+(**
+
+  A constructor for the TDGHIDEFont class.
+
+  @precon  None.
+  @postcon Adds a splash screen to the IDE.
+
+**)
+Constructor TDGHIDEFontSizeWizard.Create;
+
+Begin
+  TDGHIDEFontSplashScreen.AddSplashScreen;
 End;
 
 (**

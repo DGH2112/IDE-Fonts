@@ -22,11 +22,15 @@ Library DGHIDEFont;
   with your DLL. To avoid using BORLNDMM.DLL, pass string information
   using PChar or ShortString parameters. }
 
+{$R 'DGHIDEFont.ITHVerInfo.res' 'DGHIDEFont.ITHVerInfo.RC'}
+{$R 'DGHIDEFontBitMaps.res' 'DGHIDEFontBitMaps.rc'}
+
 uses
   System.SysUtils,
   System.Classes,
   DGHIDEFont.Wizard in 'Source\DGHIDEFont.Wizard.pas',
-  DGHIDEFont.Functions in 'Source\DGHIDEFont.Functions.pas';
+  DGHIDEFont.Functions in 'Source\DGHIDEFont.Functions.pas',
+  DGHIDEFont.SplashScreen in 'Source\DGHIDEFont.SplashScreen.pas';
 
 {$R *.res}
 

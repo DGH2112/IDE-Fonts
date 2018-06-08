@@ -39,6 +39,12 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
+    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
+        <Cfg_2_Win32>true</Cfg_2_Win32>
+        <CfgParent>Cfg_2</CfgParent>
+        <Cfg_2>true</Cfg_2>
+        <Base>true</Base>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
         <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
         <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
@@ -58,7 +64,6 @@
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <Manifest_File>(None)</Manifest_File>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <Debugger_HostApplication>C:\Program Files (x86)\Embarcadero\Studio\19.0\bin\bds.exe</Debugger_HostApplication>
@@ -79,7 +84,6 @@
         <DCC_IntegerOverflowCheck>true</DCC_IntegerOverflowCheck>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
         <VerInfo_Locale>1033</VerInfo_Locale>
         <DCC_RunTimeTypeInfo>true</DCC_RunTimeTypeInfo>
     </PropertyGroup>
@@ -89,12 +93,22 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
+        <VerInfo_Locale>1033</VerInfo_Locale>
+    </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <RcCompile Include="DGHIDEFont.ITHVerInfo.RC">
+            <Form>DGHIDEFont.ITHVerInfo.res</Form>
+        </RcCompile>
+        <RcCompile Include="DGHIDEFontBitMaps.rc">
+            <Form>DGHIDEFontBitMaps.res</Form>
+        </RcCompile>
         <DCCReference Include="Source\DGHIDEFont.Wizard.pas"/>
         <DCCReference Include="Source\DGHIDEFont.Functions.pas"/>
+        <DCCReference Include="Source\DGHIDEFont.SplashScreen.pas"/>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <BuildConfiguration Include="Release">
