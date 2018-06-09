@@ -1,0 +1,30 @@
+LANGUAGE LANG_ENGLISH,SUBLANG_ENGLISH_US
+
+1 VERSIONINFO LOADONCALL MOVEABLE DISCARDABLE IMPURE
+FILEVERSION 1, 0, 0, 66
+PRODUCTVERSION 1, 0, 0, 66
+FILEFLAGSMASK VS_FFI_FILEFLAGSMASK
+FILEOS VOS__WINDOWS32
+FILETYPE VFT_APP
+{
+  BLOCK "StringFileInfo"
+  {
+    BLOCK "040904E4"
+    {
+      VALUE "CompanyName", "Season's Fall Music\000"
+      VALUE "FileDescription", "A RAD Studio IDE Expert to change the font of IDE Windows.\000"
+      VALUE "FileVersion", "1.0.0.66\000"
+      VALUE "InternalName", "DGHIDEFonts\000"
+      VALUE "LegalCopyright", "Season's Fall Music\000"
+      VALUE "LegalTrademarks", "Season's Fall Music\000"
+      VALUE "OriginalFilename", "DGHIDEFonts\000"
+      VALUE "ProductName", "DGHIDEFonts\000"
+      VALUE "ProductVersion", "1.0\000"
+      VALUE "Comments", "A RAD Studio IDE Expert to change the font of IDE Windows.\000"
+    }
+  }
+  BLOCK "VarFileInfo"
+  {
+    VALUE "Translation", 1033, 1252
+  }
+}
