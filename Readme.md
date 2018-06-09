@@ -7,7 +7,7 @@ Version:  1.0
 
 Date:     09 Jun 2018
 
-Web Page: http://http://www.davidghoyle.co.uk/WordPress/?page_id=1960
+Web Page: http://www.davidghoyle.co.uk/WordPress/?page_id=1960
 
 ## Overview
 
