@@ -432,9 +432,11 @@ Begin
     For iForm := 0 To Screen.FormCount - 1 Do
       Begin
         F := Screen.Forms[iForm];
-        FWindowList.AddPair(F.Name, F.ClassName,
-          TObject(iniFile.ReadBool(strWindowListINISection, Format('%s(%s)', [F.Name, F.ClassName]),
-          False))
+        FWindowList.AddObject(
+          Format('%s=%s', [F.Name, F.ClassName]),
+          TObject(
+            iniFile.ReadBool(strWindowListINISection, Format('%s(%s)', [F.Name, F.ClassName]), False)
+          )
         );
       End;
   Finally

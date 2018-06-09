@@ -39,7 +39,7 @@ Uses
 Class Procedure TDGHIDEFontSplashScreen.AddSplashScreen;
 
 ResourceString
-  strSplashScreenName = 'DGH IDE Font %d.%d%s for %s';
+  strSplashScreenName = 'DGH IDE Fonts %d.%d%s for %s';
   {$IFDEF DEBUG}
   strSplashScreenBuild = 'Freeware by David Hoyle (DEBUG Build %d.%d.%d.%d)';
   {$ELSE}
