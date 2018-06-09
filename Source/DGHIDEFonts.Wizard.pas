@@ -339,7 +339,7 @@ End;
 Function TDGHIDEFontWizard.GetMenuText: String;
 
 ResourceString
-  strIDEFontSize = 'IDE Font Size';
+  strIDEFontSize = 'IDE Fonts...';
 
 Begin
   Result := strIDEFontSize;
