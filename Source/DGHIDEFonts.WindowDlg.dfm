@@ -34,7 +34,6 @@ object frmWindowDlg: TfrmWindowDlg
       'font name and size. Please be aware that this list includes the ' +
       'form designers for any forms you are currently have open.'
     WordWrap = True
-    ExplicitWidth = 467
   end
   object lvWindowList: TListView
     AlignWithMargins = True
@@ -59,7 +58,6 @@ object frmWindowDlg: TfrmWindowDlg
     RowSelect = True
     TabOrder = 0
     ViewStyle = vsReport
-    ExplicitHeight = 516
   end
   object cbxFontName: TComboBox
     Left = 8
@@ -119,6 +117,5 @@ object frmWindowDlg: TfrmWindowDlg
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'Update the Form Component'#39's ParentFont to True'
     TabOrder = 1
-    ExplicitTop = 585
   end
 end

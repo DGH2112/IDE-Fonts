@@ -4,10 +4,10 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    08 Jun 2018
+  @Date    09 Jun 2018
   
 **)
-Unit DGHIDEFont.Wizard;
+Unit DGHIDEFonts.Wizard;
 
 Interface
 
@@ -72,9 +72,9 @@ Uses
   VCL.Dialogs,
   WinApi.Windows,
   WinApi.ShlObj,
-  DGHIDEFont.Functions,
-  DGHIDEFont.SplashScreen,
-  DGHIDEFont.WindowDlg;
+  DGHIDEFonts.Functions,
+  DGHIDEFonts.SplashScreen,
+  DGHIDEFonts.WindowDlg;
 
 Const
   (** A constant for the INI section name for storing the settings. **)

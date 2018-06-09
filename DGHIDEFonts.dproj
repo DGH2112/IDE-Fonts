@@ -3,7 +3,7 @@
         <ProjectGuid>{CC11208B-7D2E-4EDE-8EA2-8AE4E7E3B57F}</ProjectGuid>
         <ProjectVersion>18.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
-        <MainSource>DGHIDEFont.dpr</MainSource>
+        <MainSource>DGHIDEFonts.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
@@ -56,10 +56,12 @@
         <GenDll>true</GenDll>
         <DCC_UsePackage>VCL;RTL;DesignIDE;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
-        <SanitizedProjectName>DGHIDEFont</SanitizedProjectName>
+        <SanitizedProjectName>DGHIDEFonts</SanitizedProjectName>
         <UsePackages>true</UsePackages>
         <VerInfo_Locale>2057</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+        <DCC_UNIT_PLATFORM>false</DCC_UNIT_PLATFORM>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
@@ -100,21 +102,23 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <RcCompile Include="DGHIDEFont.ITHVerInfo.RC">
-            <Form>DGHIDEFont.ITHVerInfo.res</Form>
+        <RcCompile Include="DGHIDEFonts.ITHVerInfo.RC">
+            <Form>DGHIDEFonts.ITHVerInfo.res</Form>
         </RcCompile>
-        <RcCompile Include="DGHIDEFontBitMaps.rc">
-            <Form>DGHIDEFontBitMaps.res</Form>
+        <RcCompile Include="DGHIDEFontsBitMaps.rc">
+            <Form>DGHIDEFontsBitMaps.res</Form>
         </RcCompile>
-        <DCCReference Include="Source\DGHIDEFont.Wizard.pas"/>
-        <DCCReference Include="Source\DGHIDEFont.Functions.pas"/>
-        <DCCReference Include="Source\DGHIDEFont.SplashScreen.pas"/>
-        <DCCReference Include="Source\DGHIDEFont.WindowDlg.pas">
+        <DCCReference Include="Source\DGHIDEFonts.Wizard.pas"/>
+        <DCCReference Include="Source\DGHIDEFonts.Functions.pas"/>
+        <DCCReference Include="Source\DGHIDEFonts.SplashScreen.pas"/>
+        <DCCReference Include="Source\DGHIDEFonts.WindowDlg.pas">
             <Form>frmWindowDlg</Form>
             <FormType>dfm</FormType>
         </DCCReference>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
+        <None Include="License.md"/>
+        <None Include="Readme.md"/>
         <BuildConfiguration Include="Release">
             <Key>Cfg_2</Key>
             <CfgParent>Base</CfgParent>
@@ -133,7 +137,7 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">DGHIDEFont.dpr</Source>
+                    <Source Name="MainSource">DGHIDEFonts.dpr</Source>
                 </Source>
                 <Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\bcboffice2k250.bpl">Embarcadero C++Builder Office 2000 Servers Package</Excluded_Packages>
@@ -163,15 +167,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Win32\Debug\DGHIDEFont.dll" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="Win32\Debug\DGHIDEFonts.dll" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteName>DGHIDEFont.dll</RemoteName>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
-                <DeployFile LocalName="Win32\Debug\DGHIDEFont.dll" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>DGHIDEFont.dll</RemoteName>
+                        <RemoteName>DGHIDEFonts.dll</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

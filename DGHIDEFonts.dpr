@@ -10,7 +10,7 @@
   @nocheck EmptyBeginEnd
   
 **)
-Library DGHIDEFont;
+Library DGHIDEFonts;
 
 { Important note about DLL memory management: ShareMem must be the
   first unit in your library's USES clause AND your project's (select
@@ -22,16 +22,16 @@ Library DGHIDEFont;
   with your DLL. To avoid using BORLNDMM.DLL, pass string information
   using PChar or ShortString parameters. }
 
-{$R 'DGHIDEFont.ITHVerInfo.res' 'DGHIDEFont.ITHVerInfo.RC'}
-{$R 'DGHIDEFontBitMaps.res' 'DGHIDEFontBitMaps.rc'}
+{$R 'DGHIDEFonts.ITHVerInfo.res' 'DGHIDEFonts.ITHVerInfo.RC'}
+{$R 'DGHIDEFontsBitMaps.res' 'DGHIDEFontsBitMaps.rc'}
 
 uses
   System.SysUtils,
   System.Classes,
-  DGHIDEFont.Wizard in 'Source\DGHIDEFont.Wizard.pas',
-  DGHIDEFont.Functions in 'Source\DGHIDEFont.Functions.pas',
-  DGHIDEFont.SplashScreen in 'Source\DGHIDEFont.SplashScreen.pas',
-  DGHIDEFont.WindowDlg in 'Source\DGHIDEFont.WindowDlg.pas' {frmWindowDlg};
+  DGHIDEFonts.Wizard in 'Source\DGHIDEFonts.Wizard.pas',
+  DGHIDEFonts.Functions in 'Source\DGHIDEFonts.Functions.pas',
+  DGHIDEFonts.SplashScreen in 'Source\DGHIDEFonts.SplashScreen.pas',
+  DGHIDEFonts.WindowDlg in 'Source\DGHIDEFonts.WindowDlg.pas' {frmWindowDlg};
 
 {$R *.res}
 

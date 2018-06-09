@@ -4,10 +4,10 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    08 Jun 2018
+  @Date    09 Jun 2018
   
 **)
-Unit DGHIDEFont.WindowDlg;
+Unit DGHIDEFonts.WindowDlg;
 
 Interface
 

@@ -4,10 +4,10 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    08 Jun 2018
+  @Date    09 Jun 2018
   
 **)
-Unit DGHIDEFont.SplashScreen;
+Unit DGHIDEFonts.SplashScreen;
 
 Interface
 
@@ -26,7 +26,7 @@ Uses
   System.SysUtils,
   VCL.Forms,
   WinAPI.Windows,
-  DGHIDEFont.Functions;
+  DGHIDEFonts.Functions;
 
 (**
 
