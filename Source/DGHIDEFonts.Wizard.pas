@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    09 Jun 2018
+  @Date    23 Jun 2018
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -534,6 +534,7 @@ Var
   iForm: Integer;
 
 Begin
+  //: @todo Add a delay interval after the IDE is visible before procerssing the forms.
   For iForm := 0 To Screen.FormCount - 1 Do
     If CompareText(Screen.Forms[iForm].Name, strAppBuilderName) = 0 Then
       If (Screen.Forms[iForm].Visible) And (Screen.Forms[iForm].CanFocus) Then
@@ -612,6 +613,8 @@ Var
   iIndex: Integer;
 
 Begin
+  //: @todo Log just the windows that need updated and which items were updated.
+  //: @todo Might need custom messages and child messages
   For iForm := 0 To Screen.FormCount - 1 Do
     Begin
       F := Screen.Forms[iForm];
