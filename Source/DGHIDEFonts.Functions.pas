@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    09 Jun 2018
+  @Date    24 Jun 2018
   
 **)
 Unit DGHIDEFonts.Functions;
@@ -24,7 +24,6 @@ Type
   TDGHIDEFontFunctions = Record
   Strict Private
   Public
-    Class Procedure OutputMsg(Const strMsg : String); Static;
     Class Function  BuildNumber(Const strFileName : String) : TBuildInfo; Static;
   End;
 
@@ -33,7 +32,8 @@ Implementation
 Uses
   ToolsAPI,
   System.SysUtils,
-  WinAPI.Windows;
+  WinAPI.Windows,
+  DGHIDEFonts.CustomMessage;
 
 (**
 
@@ -74,34 +74,6 @@ Begin
       Finally
         FreeMem(VerInfo, VerInfoSize);
       End;
-    End;
-End;
-
-(**
-
-  This method outputs a message to the IDEs message window in a specific group tab.
-
-  @precon  None.
-  @postcon The messawge geiven is output to the message window.
-
-  @param   strMsg as a String as a constant
-
-**)
-Class Procedure TDGHIDEFontFunctions.OutputMsg(Const strMsg: String);
-
-ResourceString
-  strDGHIDEFontSizeMessages = 'DGH IDE Font Size Messages';
-
-Var
-  MS : IOTAMessageServices;
-  G: IOTAMessageGroup;
-  
-Begin
-  If Supports(BorlandIDEServices, IOTAMessageServices, MS) Then
-    Begin
-      G := MS.AddMessageGroup(strDGHIDEFontSizeMessages);
-      MS.ShowMessageView(G);
-      MS.AddTitleMessage(strMsg, G);
     End;
 End;
 

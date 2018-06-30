@@ -115,6 +115,7 @@
             <Form>frmWindowDlg</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="Source\DGHIDEFonts.CustomMessage.pas"/>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <None Include="License.md"/>
