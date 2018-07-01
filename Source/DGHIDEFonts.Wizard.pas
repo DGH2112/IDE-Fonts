@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    30 Jun 2018
+  @Date    01 Jul 2018
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -75,9 +75,9 @@ Uses
   VCL.Graphics,
   WinApi.Windows,
   WinApi.ShlObj,
+  DGHIDEFonts.Interfaces,
   DGHIDEFonts.Functions,
-  DGHIDEFonts.SplashScreen,
-  DGHIDEFonts.CustomMessage;
+  DGHIDEFonts.SplashScreen;
 
 Const
   (** A constant for the INI section name for storing the settings. **)
@@ -605,7 +605,7 @@ Begin
             Begin
               V := True;
               P.SetValue(C, V);
-              AddMsg(
+              TDGHIDEFontFunctions.AddMsg(
                 Format(strParentFont, [
                   F.ClassName,
                   F.Name,
@@ -641,24 +641,26 @@ Var
   P: IDGHIDEFontCustomMessage;
 
 Begin
+  TDGHIDEFontFunctions.ClearMessages;
   For iForm := 0 To Screen.FormCount - 1 Do
     Begin
       F := Screen.Forms[iForm];
       iIndex := FWindowList.IndexOf(Format('%s=%s', [F.Name, F.ClassName]));
       If Boolean(FWindowList.Objects[iIndex]) Then
         Begin
-          P := AddMsg(Format(strProcessingForm, [F.Name, F.ClassName]), clNavy, [], Nil);
+          P := TDGHIDEFontFunctions.AddMsg(Format(strProcessingForm, [F.Name, F.ClassName]), clNavy, [],
+            Nil);
           If CompareText(F.Font.Name, FSettings.FFontName) <> 0 Then
             Begin
               F.Font.Name := FSettings.FFontName;
-              AddMsg(Format(strFontName, [F.ClassName, F.Name, FSettings.FFontName]), clBlue, [],
-                P.MsgPtr);
+              TDGHIDEFontFunctions.AddMsg(Format(strFontName, [F.ClassName, F.Name,
+                FSettings.FFontName]), clBlue, [], P.MsgPtr);
             End;
           If F.Font.Size <> FSettings.FFontSize Then
             Begin
               F.Font.Size := FSettings.FFontSize;
-              AddMsg(Format(strFontSize, [F.ClassName, F.Name, FSettings.FFontSize]), clBlue, [],
-                P.MsgPtr);
+              TDGHIDEFontFunctions.AddMsg(Format(strFontSize, [F.ClassName, F.Name,
+                FSettings.FFontSize]), clBlue, [], P.MsgPtr);
             End;
           If FSettings.FParentFont Then
             UpdateParentFont(F, P.MsgPtr);

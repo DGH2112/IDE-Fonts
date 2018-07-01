@@ -116,6 +116,7 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Source\DGHIDEFonts.CustomMessage.pas"/>
+        <DCCReference Include="Source\DGHIDEFonts.Interfaces.pas"/>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <None Include="License.md"/>

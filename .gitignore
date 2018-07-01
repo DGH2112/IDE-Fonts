@@ -67,3 +67,5 @@ __recovery/
 
 # DGH IDE Font Size Specific Ignores
 *.eof
+Win32/
+F2084*.txt
