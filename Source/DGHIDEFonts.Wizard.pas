@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    01 Jul 2018
+  @Date    14 Jul 2018
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -136,7 +136,7 @@ End;
 **)
 Function InitWizard(Const BorlandIDEServices : IBorlandIDEServices;
   RegisterProc : TWizardRegisterProc;
-  var Terminate: TWizardTerminateProc) : Boolean; StdCall;
+  var Terminate: TWizardTerminateProc) : Boolean; StdCall; //FI:O804
 
 Begin
   Result := Assigned(BorlandIDEServices);
@@ -179,7 +179,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.AfterSave;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -194,7 +194,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.BeforeSave;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -286,7 +286,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.Destroyed;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -465,7 +465,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.Modified;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
