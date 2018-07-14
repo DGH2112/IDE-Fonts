@@ -35,12 +35,22 @@ object frmWindowDlg: TfrmWindowDlg
       'form designers for any forms you are currently have open.'
     WordWrap = True
   end
+  object lblDelayInterval: TLabel
+    Left = 8
+    Top = 575
+    Width = 177
+    Height = 16
+    Anchors = [akLeft, akBottom]
+    AutoSize = False
+    Caption = 'Delay &Interval after Visible'
+    FocusControl = edtDelayInterval
+  end
   object lvWindowList: TListView
     AlignWithMargins = True
     Left = 8
     Top = 63
     Width = 448
-    Height = 481
+    Height = 450
     Anchors = [akLeft, akTop, akRight, akBottom]
     Checkboxes = True
     Columns = <
@@ -61,7 +71,7 @@ object frmWindowDlg: TfrmWindowDlg
   end
   object cbxFontName: TComboBox
     Left = 8
-    Top = 573
+    Top = 542
     Width = 177
     Height = 24
     Style = csDropDownList
@@ -70,7 +80,7 @@ object frmWindowDlg: TfrmWindowDlg
   end
   object edtFontSize: TEdit
     Left = 191
-    Top = 573
+    Top = 542
     Width = 57
     Height = 24
     Anchors = [akLeft, akBottom]
@@ -79,7 +89,7 @@ object frmWindowDlg: TfrmWindowDlg
   end
   object udFontSize: TUpDown
     Left = 248
-    Top = 573
+    Top = 542
     Width = 16
     Height = 24
     Anchors = [akLeft, akBottom]
@@ -97,7 +107,7 @@ object frmWindowDlg: TfrmWindowDlg
     Anchors = [akRight, akBottom]
     Kind = bkOK
     NumGlyphs = 2
-    TabOrder = 5
+    TabOrder = 7
   end
   object btnCancel: TBitBtn
     Left = 381
@@ -107,15 +117,35 @@ object frmWindowDlg: TfrmWindowDlg
     Anchors = [akRight, akBottom]
     Kind = bkCancel
     NumGlyphs = 2
-    TabOrder = 6
+    TabOrder = 8
   end
   object chkParentFont: TCheckBox
     Left = 8
-    Top = 550
+    Top = 519
     Width = 448
     Height = 17
     Anchors = [akLeft, akRight, akBottom]
     Caption = 'Update the Form Component'#39's ParentFont to True'
     TabOrder = 1
+  end
+  object edtDelayInterval: TEdit
+    Left = 191
+    Top = 572
+    Width = 57
+    Height = 24
+    Anchors = [akLeft, akBottom]
+    TabOrder = 5
+    Text = '8'
+  end
+  object udDelayInterval: TUpDown
+    Left = 248
+    Top = 572
+    Width = 16
+    Height = 24
+    Anchors = [akLeft, akBottom]
+    Associate = edtDelayInterval
+    Max = 60
+    Position = 8
+    TabOrder = 6
   end
 end

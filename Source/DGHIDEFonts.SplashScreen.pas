@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    09 Jun 2018
+  @Date    14 Jul 2018
   
 **)
 Unit DGHIDEFonts.SplashScreen;
@@ -73,7 +73,7 @@ Begin
           Application.Title
         ]),
         bmSplashScreen,
-        {$IFDEF DEBUG} False {$ELSE} True {$ENDIF},
+        {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
         Format(strSplashScreenBuild, [
           BuildInfo.FMajor,
           BuildInfo.FMinor,

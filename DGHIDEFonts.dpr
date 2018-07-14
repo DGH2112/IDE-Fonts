@@ -31,7 +31,9 @@ uses
   DGHIDEFonts.Wizard in 'Source\DGHIDEFonts.Wizard.pas',
   DGHIDEFonts.Functions in 'Source\DGHIDEFonts.Functions.pas',
   DGHIDEFonts.SplashScreen in 'Source\DGHIDEFonts.SplashScreen.pas',
-  DGHIDEFonts.WindowDlg in 'Source\DGHIDEFonts.WindowDlg.pas' {frmWindowDlg};
+  DGHIDEFonts.WindowDlg in 'Source\DGHIDEFonts.WindowDlg.pas' {frmWindowDlg},
+  DGHIDEFonts.CustomMessage in 'Source\DGHIDEFonts.CustomMessage.pas',
+  DGHIDEFonts.Interfaces in 'Source\DGHIDEFonts.Interfaces.pas';
 
 {$R *.res}
 

@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    09 Jun 2018
+  @Date    14 Jul 2018
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -15,7 +15,8 @@ Uses
   ToolsAPI,
   System.Classes,
   VCL.ExtCtrls,
-  VCL.Forms;
+  VCL.Forms,
+  DGHIDEFonts.WindowDlg;
 
 Type
   (** A class which implements the IOTAWizard and ITAMenuWizard interfaces for the RAD Studio IDE
@@ -23,12 +24,11 @@ Type
   TDGHIDEFontWizard = Class(TInterfacedObject, IOTAWizard, IOTAMenuWizard)
   Strict Private
     FINIFileName : String;
-    FFontName    : String;
     FWindowList  : TStringList;
-    FFontSize    : Integer;
-    FParentFont  : Boolean;
+    FSettings    : TDGHIDEFontSettings;
     FHasRunBefore: Boolean;
     FStartTimer  : TTimer;
+    FInterval    : Integer;
   Strict Protected
     // IOTAWizard
     Procedure Execute;
@@ -48,7 +48,7 @@ Type
     Procedure LoadWindowList;
     Procedure SaveWindowList;
     Procedure UpdateWindows;
-    Procedure UpdateParentFont(Const F : TForm);
+    Procedure UpdateParentFont(Const F : TForm; Const ptrParent : Pointer);
     // Event Handlers
     Procedure StartTimerEvent(Sender : TObject);
   Public
@@ -65,16 +65,19 @@ Exports
 Implementation
 
 Uses
+  {$IFDEF DEBUG}
+  CodeSiteLogging,
+  {$ENDIF}
   System.SysUtils,
   System.RTTI,
   System.INIFiles,
   VCL.Controls,
-  VCL.Dialogs,
+  VCL.Graphics,
   WinApi.Windows,
   WinApi.ShlObj,
+  DGHIDEFonts.Interfaces,
   DGHIDEFonts.Functions,
-  DGHIDEFonts.SplashScreen,
-  DGHIDEFonts.WindowDlg;
+  DGHIDEFonts.SplashScreen;
 
 Const
   (** A constant for the INI section name for storing the settings. **)
@@ -89,6 +92,8 @@ Const
   strWindowListINISection = 'WindowList';
   (** An ini key for the parent font settings. **)
   strParentFontKey = 'ParentFont';
+  (** An ini key for the delay interval settings. **)
+  strIntervalKey = 'Interval';
 
 (**
 
@@ -131,7 +136,7 @@ End;
 **)
 Function InitWizard(Const BorlandIDEServices : IBorlandIDEServices;
   RegisterProc : TWizardRegisterProc;
-  var Terminate: TWizardTerminateProc) : Boolean; StdCall;
+  var Terminate: TWizardTerminateProc) : Boolean; StdCall; //FI:O804
 
 Begin
   Result := Assigned(BorlandIDEServices);
@@ -174,7 +179,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.AfterSave;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -189,7 +194,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.BeforeSave;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -245,6 +250,7 @@ Begin
   LoadSettings;
   TDGHIDEFontSplashScreen.AddSplashScreen;
   FWindowList := TStringList.Create;
+  FInterval := 0;
   FStartTimer := TTimer.Create(Nil);
   FStartTimer.Interval := iStartTimerInterval;
   FStartTimer.Enabled := True;
@@ -280,7 +286,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.Destroyed;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -296,10 +302,10 @@ End;
 
 **)
 Procedure TDGHIDEFontWizard.Execute;
-
+                                          
 Begin
   LoadWindowList;
-  If TfrmWindowDlg.Execute(FWindowList, FFontName, FFontSize, FParentFont) Then
+  If TfrmWindowDlg.Execute(FWindowList, FSettings) Then
     Begin
       UpdateWindows;
       SaveWindowList;
@@ -393,6 +399,7 @@ Procedure TDGHIDEFontWizard.LoadSettings;
 Const
   strDefaultFontName = 'Tahoma';
   iDefaultFontSize = 10;
+  iDefaultInterval = 2;
 
 Var
   iniFile: TMemIniFile;
@@ -401,9 +408,11 @@ Begin
   iniFile := TMemIniFile.Create(FINIFileName);
   Try
     FHasRunBefore := iniFile.ReadBool(strSetupINISection, strHasRunBeforeKey, False);
-    FParentFont := iniFile.ReadBool(strSetupINISection, strParentFontKey, True);
-    FFontName := iniFile.ReadString(strSetupINISection, strFontNameKey, strDefaultFontName);
-    FFontSize := iniFile.ReadInteger(strSetupINISection, strFontSizeKey, iDefaultFontSize);
+    FSettings.FParentFont := iniFile.ReadBool(strSetupINISection, strParentFontKey, True);
+    FSettings.FFontName := iniFile.ReadString(strSetupINISection, strFontNameKey, strDefaultFontName);
+    FSettings.FFontSize := iniFile.ReadInteger(strSetupINISection, strFontSizeKey, iDefaultFontSize);
+    FSettings.FUpdateInterval := iniFile.ReadInteger(strSetupINISection, strIntervalKey,
+      iDefaultInterval);
   Finally
     iniFile.Free;
   End;
@@ -456,7 +465,7 @@ End;
 **)
 Procedure TDGHIDEFontWizard.Modified;
 
-Begin
+Begin //FI:W519
 End;
 
 (**
@@ -475,9 +484,10 @@ Var
 Begin
   iniFile := TMemIniFile.Create(FINIFileName);
   Try
-    iniFile.WriteBool(strSetupINISection, strParentFontKey, FParentFont);
-    iniFile.WriteString(strSetupINISection, strFontNameKey, FFontName);
-    iniFile.WriteInteger(strSetupINISection, strFontSizeKey, FFontSize);
+    iniFile.WriteBool(strSetupINISection, strParentFontKey, FSettings.FParentFont);
+    iniFile.WriteString(strSetupINISection, strFontNameKey, FSettings.FFontName);
+    iniFile.WriteInteger(strSetupINISection, strFontSizeKey, FSettings.FFontSize);
+    iniFile.ReadInteger(strSetupINISection, strIntervalKey, FSettings.FUpdateInterval);
     iniFile.UpdateFile;
   Finally
     iniFile.Free;
@@ -538,32 +548,40 @@ Begin
     If CompareText(Screen.Forms[iForm].Name, strAppBuilderName) = 0 Then
       If (Screen.Forms[iForm].Visible) And (Screen.Forms[iForm].CanFocus) Then
         Begin
-          FStartTimer.Enabled := False;
-          If FHasRunBefore Then
+          If FInterval >= FSettings.FUpdateInterval Then
             Begin
-              LoadWindowList;
-              UpdateWindows;
-              SaveWindowList;
+              FStartTimer.Enabled := False;
+              If FHasRunBefore Then
+                Begin
+                  LoadWindowList;
+                  UpdateWindows;
+                  SaveWindowList;
+                End Else
+                  Execute;
             End Else
-              Execute;
+              Inc(FInterval);
         End;
       End;
 
 (**
 
-  This method updates the components on the form to ensure that they have their ParentFont property
-  set to True.
+  This method updates the components on the form to ensure that they have their ParentFont property set 
+  to True.
 
   @precon  F must be a valid instance.
   @postcon All components with the ParentFont property have them set to True if False;
 
-  @param   F as a TForm as a constant
+  @param   F         as a TForm as a constant
+  @param   ptrParent as a Pointer as a constant
 
 **)
-Procedure TDGHIDEFontWizard.UpdateParentFont(Const F : TForm);
+Procedure TDGHIDEFontWizard.UpdateParentFont(Const F : TForm; Const ptrParent : Pointer);
 
 Const
   strParentFontPropName = 'ParentFont';
+
+ResourceString
+  strParentFont = '%s(%s).%s(%s).ParentFont = True';
 
 Var
   iComponent: Integer;
@@ -587,6 +605,14 @@ Begin
             Begin
               V := True;
               P.SetValue(C, V);
+              TDGHIDEFontFunctions.AddMsg(
+                Format(strParentFont, [
+                  F.ClassName,
+                  F.Name,
+                  C.ClassName,
+                  C.Name
+                ]),
+                clMaroon, [], ptrParent);
             End;
         End;
     End;
@@ -605,24 +631,39 @@ Procedure TDGHIDEFontWizard.UpdateWindows;
 
 ResourceString
   strProcessingForm = 'Processing Form: %s(%s)';
+  strFontName = '%s(%s).Font.Name = %s';
+  strFontSize = '%s(%s).Font.Size = %d';
 
 Var
   iForm : Integer;
   F: TForm;
   iIndex: Integer;
+  P: IDGHIDEFontCustomMessage;
 
 Begin
+  TDGHIDEFontFunctions.ClearMessages;
   For iForm := 0 To Screen.FormCount - 1 Do
     Begin
       F := Screen.Forms[iForm];
       iIndex := FWindowList.IndexOf(Format('%s=%s', [F.Name, F.ClassName]));
       If Boolean(FWindowList.Objects[iIndex]) Then
         Begin
-          TDGHIDEFontFunctions.OutputMsg(Format(strProcessingForm, [F.Name, F.ClassName]));
-          F.Font.Name := FFontName;
-          F.Font.Size := FFontSize;
-          If FParentFont Then
-            UpdateParentFont(F);
+          P := TDGHIDEFontFunctions.AddMsg(Format(strProcessingForm, [F.Name, F.ClassName]), clNavy, [],
+            Nil);
+          If CompareText(F.Font.Name, FSettings.FFontName) <> 0 Then
+            Begin
+              F.Font.Name := FSettings.FFontName;
+              TDGHIDEFontFunctions.AddMsg(Format(strFontName, [F.ClassName, F.Name,
+                FSettings.FFontName]), clBlue, [], P.MsgPtr);
+            End;
+          If F.Font.Size <> FSettings.FFontSize Then
+            Begin
+              F.Font.Size := FSettings.FFontSize;
+              TDGHIDEFontFunctions.AddMsg(Format(strFontSize, [F.ClassName, F.Name,
+                FSettings.FFontSize]), clBlue, [], P.MsgPtr);
+            End;
+          If FSettings.FParentFont Then
+            UpdateParentFont(F, P.MsgPtr);
         End;
     End;
   FHasRunBefore := True;

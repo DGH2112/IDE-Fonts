@@ -4,12 +4,16 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    09 Jun 2018
+  @Date    14 Jul 2018
   
 **)
 Unit DGHIDEFonts.Functions;
 
 Interface
+
+Uses
+  DGHIDEFonts.Interfaces,
+  VCL.Graphics;
 
 Type
   (** A record to describe the build information for the expert. **)
@@ -24,8 +28,11 @@ Type
   TDGHIDEFontFunctions = Record
   Strict Private
   Public
-    Class Procedure OutputMsg(Const strMsg : String); Static;
     Class Function  BuildNumber(Const strFileName : String) : TBuildInfo; Static;
+    Class Function AddMsg(Const strMsg : String; Const iColour : TColor;
+      Const setStyles : TFontStyles = []; Const ptrParentMsg : Pointer = Nil) : IDGHIDEFontCustomMessage;
+      Static;
+    Class Procedure ClearMessages(); Static;
   End;
 
 Implementation
@@ -33,7 +40,49 @@ Implementation
 Uses
   ToolsAPI,
   System.SysUtils,
-  WinAPI.Windows;
+  WinAPI.Windows,
+  DGHIDEFonts.CustomMessage;
+
+ResourceString
+  (** A resource string to definer the name of the message group. **)
+  strDGHIDEFontMessages = 'DGH IDE Font Messages';
+
+(**
+
+  This method creates a custom message adds it to the IDe message view.
+
+  @precon  If ptrParentMsg is specificed it must pointer to a valid message instance.
+  @postcon Create a custom message with the option parent as a message.
+
+  @param   strMsg       as a String as a constant
+  @param   iColour      as a TColor as a constant
+  @param   setStyles    as a TFontStyles as a constant
+  @param   ptrParentMsg as a Pointer as a constant
+  @return  an IDGHIDEFontCustomMessage
+
+**)
+Class Function TDGHIDEFontFunctions.AddMsg(Const strMsg : String; Const iColour : TColor;
+  Const setStyles : TFontStyles = []; Const ptrParentMsg : Pointer = Nil) : IDGHIDEFontCustomMessage;
+
+Var
+  MS : IOTAMessageServices;
+  M : IDGHIDEFontCustomMessage;
+  G: IOTAMessageGroup;
+
+Begin
+  Result := Nil;
+  If Supports(BorlandIDEServices, IOTAMessageServices, MS) Then
+    Begin
+      M := TDGHIDEFontCustomMessage.Create(strMsg, iColour, setStyles);
+      Result := M;
+      If Not Assigned(ptrParentMsg) Then
+        Begin
+          G := MS.AddMessageGroup(strDGHIDEFontMessages);
+          Result.MsgPtr := MS.AddCustomMessagePtr(M, G);
+        End Else
+          MS.AddCustomMessage(M, ptrParentMsg);
+    End;
+End;
 
 (**
 
@@ -60,6 +109,10 @@ Var
   Dummy: DWORD;
 
 Begin
+  Result.FMajor := 0;
+  Result.FMinor := 0;
+  Result.FBugFix := 0;
+  Result.FBuild := 0;
   VerInfoSize := GetFileVersionInfoSize(PChar(strFileName), Dummy);
   If VerInfoSize <> 0 Then
     Begin
@@ -79,29 +132,24 @@ End;
 
 (**
 
-  This method outputs a message to the IDEs message window in a specific group tab.
+  This method clears the DGH IDE Font message window.
 
   @precon  None.
-  @postcon The messawge geiven is output to the message window.
-
-  @param   strMsg as a String as a constant
+  @postcon The DGH IDE Font Message window is cleared of all messages.
 
 **)
-Class Procedure TDGHIDEFontFunctions.OutputMsg(Const strMsg: String);
-
-ResourceString
-  strDGHIDEFontSizeMessages = 'DGH IDE Font Size Messages';
+Class Procedure TDGHIDEFontFunctions.ClearMessages;
 
 Var
   MS : IOTAMessageServices;
   G: IOTAMessageGroup;
-  
+
 Begin
   If Supports(BorlandIDEServices, IOTAMessageServices, MS) Then
     Begin
-      G := MS.AddMessageGroup(strDGHIDEFontSizeMessages);
-      MS.ShowMessageView(G);
-      MS.AddTitleMessage(strMsg, G);
+      G := MS.GetGroup(strDGHIDEFontMessages);
+      If Assigned(G) Then
+        MS.ClearMessageGroup(G);
     End;
 End;
 
