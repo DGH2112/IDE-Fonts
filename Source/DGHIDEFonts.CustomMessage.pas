@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    01 Jul 2018
+  @Date    14 Jul 2018
   
 **)
 Unit DGHIDEFonts.CustomMessage;
@@ -65,7 +65,7 @@ Uses
   @return  a TRect
 
 **)
-Function TDGHIDEFontCustomMessage.CalcRect(Canvas: TCanvas; MaxWidth: Integer; Wrap: Boolean): TRect;
+Function TDGHIDEFontCustomMessage.CalcRect(Canvas: TCanvas; MaxWidth: Integer; Wrap: Boolean): TRect; //FI:W804
 
 Const
   strTextHeightTest = 'Wp';
@@ -114,7 +114,7 @@ End;
   @param   Wrap   as a Boolean
 
 **)
-Procedure TDGHIDEFontCustomMessage.Draw(Canvas: TCanvas; Const Rect: TRect; Wrap: Boolean);
+Procedure TDGHIDEFontCustomMessage.Draw(Canvas: TCanvas; Const Rect: TRect; Wrap: Boolean); //FI:W804
 
 Var
   R: TRect;
@@ -236,7 +236,7 @@ End;
 **)
 Procedure TDGHIDEFontCustomMessage.ShowHelp;
 
-Begin
+Begin //FI:O804
   // Do nothing
 End;
 

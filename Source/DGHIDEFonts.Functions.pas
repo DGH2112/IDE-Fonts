@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    01 Jul 2018
+  @Date    14 Jul 2018
   
 **)
 Unit DGHIDEFonts.Functions;
@@ -109,6 +109,10 @@ Var
   Dummy: DWORD;
 
 Begin
+  Result.FMajor := 0;
+  Result.FMinor := 0;
+  Result.FBugFix := 0;
+  Result.FBuild := 0;
   VerInfoSize := GetFileVersionInfoSize(PChar(strFileName), Dummy);
   If VerInfoSize <> 0 Then
     Begin
