@@ -26,8 +26,8 @@ Library DGHIDEFonts;
 {$R 'DGHIDEFontsBitMaps.res' 'DGHIDEFontsBitMaps.rc'}
 
 uses
-  System.SysUtils,
-  System.Classes,
+  SysUtils,
+  Classes,
   DGHIDEFonts.Wizard in 'Source\DGHIDEFonts.Wizard.pas',
   DGHIDEFonts.Functions in 'Source\DGHIDEFonts.Functions.pas',
   DGHIDEFonts.SplashScreen in 'Source\DGHIDEFonts.SplashScreen.pas',

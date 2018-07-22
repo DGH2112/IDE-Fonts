@@ -15,8 +15,8 @@ Interface
 Uses
   ToolsAPI,
   DGHIDEFonts.Interfaces,
-  VCL.Graphics,
-  WinAPI.Windows;
+  Graphics,
+  Windows;
 
 Type
   (** This is a class which implements the custom messaging interfaces for the IDE. **)
@@ -47,7 +47,7 @@ Type
 Implementation
 
 Uses
-  System.SysUtils;
+  SysUtils;
 
 (**
 
@@ -65,7 +65,7 @@ Uses
   @return  a TRect
 
 **)
-Function TDGHIDEFontCustomMessage.CalcRect(Canvas: TCanvas; MaxWidth: Integer; Wrap: Boolean): TRect; //FI:W804
+Function TDGHIDEFontCustomMessage.CalcRect(Canvas: TCanvas; MaxWidth: Integer; Wrap: Boolean): TRect; //FI:O804
 
 Const
   strTextHeightTest = 'Wp';
@@ -114,7 +114,7 @@ End;
   @param   Wrap   as a Boolean
 
 **)
-Procedure TDGHIDEFontCustomMessage.Draw(Canvas: TCanvas; Const Rect: TRect; Wrap: Boolean); //FI:W804
+Procedure TDGHIDEFontCustomMessage.Draw(Canvas: TCanvas; Const Rect: TRect; Wrap: Boolean); //FI:O804
 
 Var
   R: TRect;
@@ -236,7 +236,7 @@ End;
 **)
 Procedure TDGHIDEFontCustomMessage.ShowHelp;
 
-Begin //FI:O804
+Begin //FI:W519
   // Do nothing
 End;
 

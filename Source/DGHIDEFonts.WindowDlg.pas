@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    30 Jun 2018
+  @Date    22 Jul 2018
   
 **)
 Unit DGHIDEFonts.WindowDlg;
@@ -12,18 +12,18 @@ Unit DGHIDEFonts.WindowDlg;
 Interface
 
 Uses
-  Winapi.Windows,
-  Winapi.Messages,
-  System.SysUtils,
-  System.Variants,
-  System.Classes,
-  Vcl.Graphics,
-  Vcl.Controls,
-  Vcl.Forms,
-  Vcl.Dialogs,
-  Vcl.StdCtrls,
-  Vcl.Buttons,
-  Vcl.ComCtrls;
+  Windows,
+  Messages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  StdCtrls,
+  Buttons,
+  ComCtrls;
 
 Type
   (** A record to describe the settings. **)
@@ -59,7 +59,7 @@ Type
 Implementation
 
 Uses
-  System.Math;
+  Math;
 
 {$R *.dfm}
 
@@ -118,7 +118,7 @@ Begin
   Settings.FParentFont := chkParentFont.Checked;
   Settings.FFontName := cbxFontName.Text;
   Settings.FFontSize := udFontSize.Position;
-  Settings.FUpdateInterval := udFontSize.Position;
+  Settings.FUpdateInterval := udDelayInterval.Position;
   For i := 0 To slWindowList.Count - 1 Do
     slWindowList.Objects[i] := TObject(IfThen(lvWindowList.Items[i].Checked, 1, 0));
 End;
