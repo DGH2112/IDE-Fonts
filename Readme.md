@@ -3,9 +3,9 @@ DGH IDE Fonts
 
 Author:   David Hoyle
 
-Version:  1.0
+Version:  1.1a
 
-Date:     14 Jul 2018
+Date:     22 Jul 2018
 
 Web Page: http://www.davidghoyle.co.uk/WordPress/?page_id=1960
 

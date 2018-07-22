@@ -3,9 +3,9 @@
 
 Author:  David Hoyle
 
-Version: 1.1
+Version: 1.1a
 
-Date:    14 Jul 2018
+Date:    22 Jul 2018
 
 The code contain in the project can be used as an aid to learning and used to
 compile the project for your personal use. The code can be modified for your
@@ -20,7 +20,7 @@ the code be used in a commercial product with out the author's consent.
 
 regards
 
-David Hoyle (c) 14 Jul 2018
+David Hoyle (c) 22 Jul 2018
 
 davidghoyle@gmail.com
 
