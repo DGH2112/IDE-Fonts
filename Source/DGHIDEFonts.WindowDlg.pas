@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    30 Jun 2018
+  @Date    22 Jul 2018
   
 **)
 Unit DGHIDEFonts.WindowDlg;
@@ -118,7 +118,7 @@ Begin
   Settings.FParentFont := chkParentFont.Checked;
   Settings.FFontName := cbxFontName.Text;
   Settings.FFontSize := udFontSize.Position;
-  Settings.FUpdateInterval := udFontSize.Position;
+  Settings.FUpdateInterval := udDelayInterval.Position;
   For i := 0 To slWindowList.Count - 1 Do
     slWindowList.Objects[i] := TObject(IfThen(lvWindowList.Items[i].Checked, 1, 0));
 End;
