@@ -10,7 +10,7 @@ CompileWithBRCC32=0
 MajorVer=1
 MinorVer=1
 ReleaseVer=1
-BuildVer=185
+BuildVer=186
 ResourceName=DGHIDEFonts.ITHVerInfo
 SaveModifiedFilesBeforeZipping=0
 
@@ -23,7 +23,7 @@ ExclusionFiles=
 [VersionInfo]
 CompanyName=Season's Fall Music
 FileDescription=A RAD Studio IDE Expert to change the font of IDE Windows.
-FileVersion=1.1.1.185
+FileVersion=1.1.1.186
 InternalName=DGHIDEFonts
 LegalCopyright=Season's Fall Music
 LegalTrademarks=Season's Fall Music
