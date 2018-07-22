@@ -23,9 +23,9 @@ Implementation
 
 Uses
   ToolsAPI,
-  System.SysUtils,
-  VCL.Forms,
-  WinAPI.Windows,
+  SysUtils,
+  Forms,
+  Windows,
   DGHIDEFonts.Functions;
 
 (**

@@ -13,7 +13,7 @@ Interface
 
 Uses
   DGHIDEFonts.Interfaces,
-  VCL.Graphics;
+  Graphics;
 
 Type
   (** A record to describe the build information for the expert. **)
@@ -39,8 +39,8 @@ Implementation
 
 Uses
   ToolsAPI,
-  System.SysUtils,
-  WinAPI.Windows,
+  SysUtils,
+  Windows,
   DGHIDEFonts.CustomMessage;
 
 ResourceString

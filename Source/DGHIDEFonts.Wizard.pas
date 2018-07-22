@@ -13,9 +13,9 @@ Interface
 
 Uses
   ToolsAPI,
-  System.Classes,
-  VCL.ExtCtrls,
-  VCL.Forms,
+  Classes,
+  ExtCtrls,
+  Forms,
   DGHIDEFonts.WindowDlg;
 
 Type
@@ -68,13 +68,13 @@ Uses
   {$IFDEF DEBUG}
   CodeSiteLogging,
   {$ENDIF}
-  System.SysUtils,
-  System.RTTI,
-  System.INIFiles,
-  VCL.Controls,
-  VCL.Graphics,
-  WinApi.Windows,
-  WinApi.ShlObj,
+  SysUtils,
+  RTTI,
+  INIFiles,
+  Controls,
+  Graphics,
+  Windows,
+  ShlObj,
   DGHIDEFonts.Interfaces,
   DGHIDEFonts.Functions,
   DGHIDEFonts.SplashScreen;

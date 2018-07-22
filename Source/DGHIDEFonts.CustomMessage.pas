@@ -15,8 +15,8 @@ Interface
 Uses
   ToolsAPI,
   DGHIDEFonts.Interfaces,
-  VCL.Graphics,
-  WinAPI.Windows;
+  Graphics,
+  Windows;
 
 Type
   (** This is a class which implements the custom messaging interfaces for the IDE. **)
@@ -47,7 +47,7 @@ Type
 Implementation
 
 Uses
-  System.SysUtils;
+  SysUtils;
 
 (**
 
