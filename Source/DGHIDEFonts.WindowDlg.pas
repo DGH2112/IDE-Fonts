@@ -30,10 +30,13 @@ Uses
 Type
   (** A record to describe the settings. **)
   TDGHIDEFontSettings = Record
-    FFontName       : String;
-    FFontSize       : Integer;
-    FParentFont     : Boolean;
-    FUpdateInterval : Integer;
+    FFontName         : String;
+    FFontSize         : Integer;
+    FParentFont       : Boolean;
+    FUpdateInterval   : Integer;
+    FFormFontColour   : TColor;
+    FFontAttrColour   : TColor;
+    FParentFontColour : TColor;
   End;
 
   (** A class which presents a form for querying the user for the windows to update. **)
@@ -47,6 +50,16 @@ Type
     lblDelayInterval: TLabel;
     edtDelayInterval: TEdit;
     udDelayInterval: TUpDown;
+    btnOK: TButton;
+    btnCancel: TButton;
+    ilButtonImages: TImageList;
+    lblFormFontColour: TLabel;
+    cbxFormFontColour: TColorBox;
+    cbxFontAttrColour: TColorBox;
+    lblFontAttrColour: TLabel;
+    cbxParentFontColour: TColorBox;
+    lblParentFontColour: TLabel;
+    pnlFudgePanel: TPanel;
   Strict Private
   Strict Protected
     Procedure InitialiseDlg(Const slWindowList : TStringList; Var Settings : TDGHIDEFontSettings);
@@ -129,6 +142,9 @@ Begin
   Settings.FFontName := cbxFontName.Text;
   Settings.FFontSize := udFontSize.Position;
   Settings.FUpdateInterval := udDelayInterval.Position;
+  Settings.FFormFontColour := cbxFormFontColour.Selected;
+  Settings.FFontAttrColour := cbxFontAttrColour.Selected;
+  Settings.FParentFontColour := cbxParentFontColour.Selected;
   For i := 0 To slWindowList.Count - 1 Do
     slWindowList.Objects[i] := TObject(IfThen(lvWindowList.Items[i].Checked, 1, 0));
 End;
@@ -159,6 +175,9 @@ Begin
   cbxFontName.ItemIndex := cbxFontName.Items.IndexOf(Settings.FFontName);
   udFontSize.Position := Settings.FFontSize;
   udDelayInterval.Position := Settings.FUpdateInterval;
+  cbxFormFontColour.Selected := Settings.FFormFontColour;
+  cbxFontAttrColour.Selected := Settings.FFontAttrColour;
+  cbxParentFontColour.Selected := Settings.FParentFontColour;
   lvWindowList.Items.BeginUpdate;
   Try
     For i := 0 To slWindowList.Count - 1 Do

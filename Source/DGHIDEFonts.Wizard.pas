@@ -94,6 +94,12 @@ Const
   strParentFontKey = 'ParentFont';
   (** An ini key for the delay interval settings. **)
   strIntervalKey = 'Interval';
+  (** An ini key for the colour of the form message. **)
+  strFormFontColourKey = 'FormFontColour';
+  (** An ini key for the colour of the font attribute message. **)
+  strFontAttrColourKey = 'FontAttrColour';
+  (** An ini key for the colour of the Parent Font message. **)
+  strParentFontColourKey = 'ParentFontColour';
 
 (**
 
@@ -400,6 +406,7 @@ Const
   strDefaultFontName = 'Tahoma';
   iDefaultFontSize = 10;
   iDefaultInterval = 2;
+  strDefaultFontColour = 'clWindowText';
 
 Var
   iniFile: TMemIniFile;
@@ -413,6 +420,12 @@ Begin
     FSettings.FFontSize := iniFile.ReadInteger(strSetupINISection, strFontSizeKey, iDefaultFontSize);
     FSettings.FUpdateInterval := iniFile.ReadInteger(strSetupINISection, strIntervalKey,
       iDefaultInterval);
+    FSettings.FFormFontColour := StringToColor(iniFile.ReadString(strSetupINISection,
+      strFormFontColourKey, strDefaultFontColour));
+    FSettings.FFontAttrColour := StringToColor(iniFile.ReadString(strSetupINISection,
+      strFontAttrColourKey, strDefaultFontColour));
+    FSettings.FParentFontColour := StringToColor(iniFile.ReadString(strSetupINISection,
+      strParentFontColourKey, strDefaultFontColour));
   Finally
     iniFile.Free;
   End;
@@ -488,6 +501,12 @@ Begin
     iniFile.WriteString(strSetupINISection, strFontNameKey, FSettings.FFontName);
     iniFile.WriteInteger(strSetupINISection, strFontSizeKey, FSettings.FFontSize);
     iniFile.ReadInteger(strSetupINISection, strIntervalKey, FSettings.FUpdateInterval);
+    iniFile.WriteString(strSetupINISection, strFormFontColourKey,
+      ColorToString(FSettings.FFormFontColour));
+    iniFile.WriteString(strSetupINISection, strFontAttrColourKey,
+      ColorToString(FSettings.FFontAttrColour));
+    iniFile.WriteString(strSetupINISection, strParentFontColourKey,
+      ColorToString(FSettings.FParentFontColour));
     iniFile.UpdateFile;
   Finally
     iniFile.Free;
