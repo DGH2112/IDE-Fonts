@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    14 Jul 2018
+  @Date    24 Nov 2018
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -21,7 +21,7 @@ Uses
 Type
   (** A class which implements the IOTAWizard and ITAMenuWizard interfaces for the RAD Studio IDE
       expert. **)
-  TDGHIDEFontWizard = Class(TInterfacedObject, IOTAWizard, IOTAMenuWizard)
+  TDGHIDEFontWizard = Class(TInterfacedObject, IUnknown, IOTANotifier, IOTAWizard, IOTAMenuWizard)
   Strict Private
     FINIFileName : String;
     FWindowList  : TStringList;

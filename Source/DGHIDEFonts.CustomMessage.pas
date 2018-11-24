@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    14 Jul 2018
+  @Date    24 Nov 2018
   
 **)
 Unit DGHIDEFonts.CustomMessage;
@@ -20,7 +20,7 @@ Uses
 
 Type
   (** This is a class which implements the custom messaging interfaces for the IDE. **)
-  TDGHIDEFontCustomMessage = Class(TInterfacedObject, IOTACustomMessage , INTACustomDrawMessage,
+  TDGHIDEFontCustomMessage = Class(TInterfacedObject, IUnknown, IOTACustomMessage, INTACustomDrawMessage,
     IDGHIDEFontCustomMessage)
   Strict Private
     FMsg    : String;
