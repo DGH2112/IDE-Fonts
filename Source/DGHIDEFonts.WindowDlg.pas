@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    22 Jul 2018
+  @Date    24 Nov 2018
   
 **)
 Unit DGHIDEFonts.WindowDlg;
@@ -23,7 +23,9 @@ Uses
   Dialogs,
   StdCtrls,
   Buttons,
-  ComCtrls;
+  ComCtrls, System.ImageList, Vcl.ImgList, Vcl.ExtCtrls;
+
+{$INCLUDE CompilerDefinitions.inc}
 
 Type
   (** A record to describe the settings. **)
@@ -41,8 +43,6 @@ Type
     cbxFontName: TComboBox;
     edtFontSize: TEdit;
     udFontSize: TUpDown;
-    btnOK: TBitBtn;
-    btnCancel: TBitBtn;
     chkParentFont: TCheckBox;
     lblDelayInterval: TLabel;
     edtDelayInterval: TEdit;
@@ -59,6 +59,7 @@ Type
 Implementation
 
 Uses
+  ToolsAPI,
   Math;
 
 {$R *.dfm}
@@ -81,11 +82,20 @@ Class Function TfrmWindowDlg.Execute(Const slWindowList: TStringList;
 
 Var
   F: TfrmWindowDlg;
+  ITS : IOTAIDEThemingServices250;
 
 Begin
   Result := False;
   F := TfrmWindowDlg.Create(Application.MainForm);
   Try
+    {$IFDEF DXE102}
+    If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
+      If ITS.IDEThemingEnabled Then
+        Begin
+          ITS.RegisterFormClass(TfrmWindowDlg);
+          ITS.ApplyTheme(F);
+        End;
+    {$ENDIF}
     F.InitialiseDlg(slWindowList, Settings);
     If F.ShowModal = mrOK Then
       Begin
