@@ -95,7 +95,9 @@ Class Function TfrmWindowDlg.Execute(Const slWindowList: TStringList;
 
 Var
   F: TfrmWindowDlg;
+  {$IFDEF DXE102}
   ITS : IOTAIDEThemingServices250;
+  {$ENDIF}
 
 Begin
   Result := False;

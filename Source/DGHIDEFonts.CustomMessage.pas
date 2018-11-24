@@ -140,9 +140,11 @@ Var
 Begin
   R := Rect;
   strMsg := FMsg;
+  {$IF DXE102}
   If Assigned(FStyleServices) Then
     Canvas.Font.Color := FStyleServices.GetSystemColor(FColour)
   Else
+  {$ENDIF}
     Canvas.Font.Color := FColour;
   Canvas.Font.Style := FStyles;
   Canvas.TextRect(R, strMsg, [tfLeft, tfVerticalCenter, tfEndEllipsis]);
