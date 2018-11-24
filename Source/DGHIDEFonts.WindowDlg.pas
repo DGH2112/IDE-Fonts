@@ -23,7 +23,9 @@ Uses
   Dialogs,
   StdCtrls,
   Buttons,
-  ComCtrls, System.ImageList, Vcl.ImgList, Vcl.ExtCtrls;
+  ComCtrls,
+  ImgList,
+  ExtCtrls;
 
 {$INCLUDE CompilerDefinitions.inc}
 

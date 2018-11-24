@@ -140,7 +140,7 @@ Var
 Begin
   R := Rect;
   strMsg := FMsg;
-  {$IF DXE102}
+  {$IFDEF DXE102}
   If Assigned(FStyleServices) Then
     Canvas.Font.Color := FStyleServices.GetSystemColor(FColour)
   Else
