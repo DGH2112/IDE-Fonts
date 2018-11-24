@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    22 Jul 2018
+  @Date    24 Nov 2018
   
 **)
 Unit DGHIDEFonts.WindowDlg;
@@ -23,15 +23,20 @@ Uses
   Dialogs,
   StdCtrls,
   Buttons,
-  ComCtrls;
+  ComCtrls, System.ImageList, Vcl.ImgList, Vcl.ExtCtrls;
+
+{$INCLUDE CompilerDefinitions.inc}
 
 Type
   (** A record to describe the settings. **)
   TDGHIDEFontSettings = Record
-    FFontName       : String;
-    FFontSize       : Integer;
-    FParentFont     : Boolean;
-    FUpdateInterval : Integer;
+    FFontName         : String;
+    FFontSize         : Integer;
+    FParentFont       : Boolean;
+    FUpdateInterval   : Integer;
+    FFormFontColour   : TColor;
+    FFontAttrColour   : TColor;
+    FParentFontColour : TColor;
   End;
 
   (** A class which presents a form for querying the user for the windows to update. **)
@@ -41,12 +46,20 @@ Type
     cbxFontName: TComboBox;
     edtFontSize: TEdit;
     udFontSize: TUpDown;
-    btnOK: TBitBtn;
-    btnCancel: TBitBtn;
     chkParentFont: TCheckBox;
     lblDelayInterval: TLabel;
     edtDelayInterval: TEdit;
     udDelayInterval: TUpDown;
+    btnOK: TButton;
+    btnCancel: TButton;
+    ilButtonImages: TImageList;
+    lblFormFontColour: TLabel;
+    cbxFormFontColour: TColorBox;
+    cbxFontAttrColour: TColorBox;
+    lblFontAttrColour: TLabel;
+    cbxParentFontColour: TColorBox;
+    lblParentFontColour: TLabel;
+    pnlFudgePanel: TPanel;
   Strict Private
   Strict Protected
     Procedure InitialiseDlg(Const slWindowList : TStringList; Var Settings : TDGHIDEFontSettings);
@@ -59,6 +72,7 @@ Type
 Implementation
 
 Uses
+  ToolsAPI,
   Math;
 
 {$R *.dfm}
@@ -81,11 +95,22 @@ Class Function TfrmWindowDlg.Execute(Const slWindowList: TStringList;
 
 Var
   F: TfrmWindowDlg;
+  {$IFDEF DXE102}
+  ITS : IOTAIDEThemingServices250;
+  {$ENDIF}
 
 Begin
   Result := False;
   F := TfrmWindowDlg.Create(Application.MainForm);
   Try
+    {$IFDEF DXE102}
+    If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
+      If ITS.IDEThemingEnabled Then
+        Begin
+          ITS.RegisterFormClass(TfrmWindowDlg);
+          ITS.ApplyTheme(F);
+        End;
+    {$ENDIF}
     F.InitialiseDlg(slWindowList, Settings);
     If F.ShowModal = mrOK Then
       Begin
@@ -119,6 +144,9 @@ Begin
   Settings.FFontName := cbxFontName.Text;
   Settings.FFontSize := udFontSize.Position;
   Settings.FUpdateInterval := udDelayInterval.Position;
+  Settings.FFormFontColour := cbxFormFontColour.Selected;
+  Settings.FFontAttrColour := cbxFontAttrColour.Selected;
+  Settings.FParentFontColour := cbxParentFontColour.Selected;
   For i := 0 To slWindowList.Count - 1 Do
     slWindowList.Objects[i] := TObject(IfThen(lvWindowList.Items[i].Checked, 1, 0));
 End;
@@ -149,6 +177,9 @@ Begin
   cbxFontName.ItemIndex := cbxFontName.Items.IndexOf(Settings.FFontName);
   udFontSize.Position := Settings.FFontSize;
   udDelayInterval.Position := Settings.FUpdateInterval;
+  cbxFormFontColour.Selected := Settings.FFormFontColour;
+  cbxFontAttrColour.Selected := Settings.FFontAttrColour;
+  cbxParentFontColour.Selected := Settings.FParentFontColour;
   lvWindowList.Items.BeginUpdate;
   Try
     For i := 0 To slWindowList.Count - 1 Do
