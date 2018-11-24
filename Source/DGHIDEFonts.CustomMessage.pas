@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    14 Jul 2018
+  @Date    24 Nov 2018
   
 **)
 Unit DGHIDEFonts.CustomMessage;
@@ -16,17 +16,23 @@ Uses
   ToolsAPI,
   DGHIDEFonts.Interfaces,
   Graphics,
-  Windows;
+  Windows,
+  Themes;
+
+{$INCLUDE CompilerDefinitions.inc}
 
 Type
   (** This is a class which implements the custom messaging interfaces for the IDE. **)
-  TDGHIDEFontCustomMessage = Class(TInterfacedObject, IOTACustomMessage , INTACustomDrawMessage,
+  TDGHIDEFontCustomMessage = Class(TInterfacedObject, IUnknown, IOTACustomMessage, INTACustomDrawMessage,
     IDGHIDEFontCustomMessage)
   Strict Private
     FMsg    : String;
     FColour : TColor;
     FStyles : TFontStyles;
     FMsgPtr : Pointer;
+    {$IFDEF DXE102}
+    FStyleServices : TCustomStyleServices;
+    {$ENDIF}
   Strict Protected
     // IOTA Custom Message
     Function  GetColumnNumber: Integer;
@@ -92,11 +98,22 @@ End;
 Constructor TDGHIDEFontCustomMessage.Create(Const strMsg: String; Const iColour: TColor;
   Const setStyles: TFontStyles);
 
+{$IFDEF DXE102}
+Var
+  ITS : IOTAIDEThemingServices;
+{$ENDIF}
+
 Begin
   FMsg := strMsg;
   FColour := iColour;
   FStyles := setStyles;
   FMsgPtr := Nil;
+  {$IFDEF DXE102}
+  FStyleServices := Nil;
+  If Supports(BorlandIDEServices, IOTAIDEThemingServices, ITS) Then
+    If ITS.IDEThemingEnabled Then
+      FStyleServices := ITS.StyleServices;
+  {$ENDIF}
 End;
 
 (**
@@ -123,7 +140,12 @@ Var
 Begin
   R := Rect;
   strMsg := FMsg;
-  Canvas.Font.Color := FColour;
+  {$IFDEF DXE102}
+  If Assigned(FStyleServices) Then
+    Canvas.Font.Color := FStyleServices.GetSystemColor(FColour)
+  Else
+  {$ENDIF}
+    Canvas.Font.Color := FColour;
   Canvas.Font.Style := FStyles;
   Canvas.TextRect(R, strMsg, [tfLeft, tfVerticalCenter, tfEndEllipsis]);
 End;

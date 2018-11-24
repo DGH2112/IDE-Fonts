@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    14 Jul 2018
+  @Date    24 Nov 2018
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -16,12 +16,13 @@ Uses
   Classes,
   ExtCtrls,
   Forms,
+  DGHIDEFonts.Interfaces,
   DGHIDEFonts.WindowDlg;
 
 Type
   (** A class which implements the IOTAWizard and ITAMenuWizard interfaces for the RAD Studio IDE
       expert. **)
-  TDGHIDEFontWizard = Class(TInterfacedObject, IOTAWizard, IOTAMenuWizard)
+  TDGHIDEFontWizard = Class(TInterfacedObject, IUnknown, IOTANotifier, IOTAWizard, IOTAMenuWizard)
   Strict Private
     FINIFileName : String;
     FWindowList  : TStringList;
@@ -48,7 +49,8 @@ Type
     Procedure LoadWindowList;
     Procedure SaveWindowList;
     Procedure UpdateWindows;
-    Procedure UpdateParentFont(Const F : TForm; Const ptrParent : Pointer);
+    Procedure UpdateParentFont(Const F : TForm; Var ParentMsg : IDGHIDEFontCustomMessage);
+    Procedure OutputFormMsg(Var ParentMsg : IDGHIDEFontCustomMessage; Const F : TForm);
     // Event Handlers
     Procedure StartTimerEvent(Sender : TObject);
   Public
@@ -66,7 +68,7 @@ Implementation
 
 Uses
   {$IFDEF DEBUG}
-  CodeSiteLogging,
+  //: @debug CodeSiteLogging,
   {$ENDIF}
   SysUtils,
   RTTI,
@@ -75,7 +77,6 @@ Uses
   Graphics,
   Windows,
   ShlObj,
-  DGHIDEFonts.Interfaces,
   DGHIDEFonts.Functions,
   DGHIDEFonts.SplashScreen;
 
@@ -94,6 +95,12 @@ Const
   strParentFontKey = 'ParentFont';
   (** An ini key for the delay interval settings. **)
   strIntervalKey = 'Interval';
+  (** An ini key for the colour of the form message. **)
+  strFormFontColourKey = 'FormFontColour';
+  (** An ini key for the colour of the font attribute message. **)
+  strFontAttrColourKey = 'FontAttrColour';
+  (** An ini key for the colour of the Parent Font message. **)
+  strParentFontColourKey = 'ParentFontColour';
 
 (**
 
@@ -400,6 +407,7 @@ Const
   strDefaultFontName = 'Tahoma';
   iDefaultFontSize = 10;
   iDefaultInterval = 2;
+  strDefaultFontColour = 'clWindowText';
 
 Var
   iniFile: TMemIniFile;
@@ -413,6 +421,12 @@ Begin
     FSettings.FFontSize := iniFile.ReadInteger(strSetupINISection, strFontSizeKey, iDefaultFontSize);
     FSettings.FUpdateInterval := iniFile.ReadInteger(strSetupINISection, strIntervalKey,
       iDefaultInterval);
+    FSettings.FFormFontColour := StringToColor(iniFile.ReadString(strSetupINISection,
+      strFormFontColourKey, strDefaultFontColour));
+    FSettings.FFontAttrColour := StringToColor(iniFile.ReadString(strSetupINISection,
+      strFontAttrColourKey, strDefaultFontColour));
+    FSettings.FParentFontColour := StringToColor(iniFile.ReadString(strSetupINISection,
+      strParentFontColourKey, strDefaultFontColour));
   Finally
     iniFile.Free;
   End;
@@ -470,6 +484,28 @@ End;
 
 (**
 
+  This method outputs a parent form message is the parent form reference is currently nil.
+
+  @precon  F must be a valid form.
+  @postcon The parent form message is output if the references is nil.
+
+  @param   ParentMsg as an IDGHIDEFontCustomMessage as a reference
+  @param   F         as a TForm as a constant
+
+**)
+Procedure TDGHIDEFontWizard.OutputFormMsg(Var ParentMsg : IDGHIDEFontCustomMessage; Const F : TForm);
+
+ResourceString
+  strProcessingForm = 'Processing Form: %s(%s)';
+
+Begin
+  If Not Assigned(ParentMsg) Then
+    ParentMsg := TDGHIDEFontFunctions.AddMsg(Format(strProcessingForm, [F.Name, F.ClassName]),
+       FSettings.FFormFontColour, [], Nil);
+End;
+
+(**
+
   This method saves the experts settings to the INI file.
 
   @precon  None.
@@ -488,6 +524,12 @@ Begin
     iniFile.WriteString(strSetupINISection, strFontNameKey, FSettings.FFontName);
     iniFile.WriteInteger(strSetupINISection, strFontSizeKey, FSettings.FFontSize);
     iniFile.ReadInteger(strSetupINISection, strIntervalKey, FSettings.FUpdateInterval);
+    iniFile.WriteString(strSetupINISection, strFormFontColourKey,
+      ColorToString(FSettings.FFormFontColour));
+    iniFile.WriteString(strSetupINISection, strFontAttrColourKey,
+      ColorToString(FSettings.FFontAttrColour));
+    iniFile.WriteString(strSetupINISection, strParentFontColourKey,
+      ColorToString(FSettings.FParentFontColour));
     iniFile.UpdateFile;
   Finally
     iniFile.Free;
@@ -572,10 +614,10 @@ Begin
   @postcon All components with the ParentFont property have them set to True if False;
 
   @param   F         as a TForm as a constant
-  @param   ptrParent as a Pointer as a constant
+  @param   ParentMsg as an IDGHIDEFontCustomMessage as a reference
 
 **)
-Procedure TDGHIDEFontWizard.UpdateParentFont(Const F : TForm; Const ptrParent : Pointer);
+Procedure TDGHIDEFontWizard.UpdateParentFont(Const F : TForm; Var ParentMsg : IDGHIDEFontCustomMessage);
 
 Const
   strParentFontPropName = 'ParentFont';
@@ -605,6 +647,7 @@ Begin
             Begin
               V := True;
               P.SetValue(C, V);
+              OutputFormMsg(ParentMsg, F);
               TDGHIDEFontFunctions.AddMsg(
                 Format(strParentFont, [
                   F.ClassName,
@@ -612,7 +655,7 @@ Begin
                   C.ClassName,
                   C.Name
                 ]),
-                clMaroon, [], ptrParent);
+                FSettings.FParentFontColour, [], ParentMsg.MsgPtr);
             End;
         End;
     End;
@@ -630,7 +673,6 @@ End;
 Procedure TDGHIDEFontWizard.UpdateWindows;
 
 ResourceString
-  strProcessingForm = 'Processing Form: %s(%s)';
   strFontName = '%s(%s).Font.Name = %s';
   strFontSize = '%s(%s).Font.Size = %d';
 
@@ -648,22 +690,23 @@ Begin
       iIndex := FWindowList.IndexOf(Format('%s=%s', [F.Name, F.ClassName]));
       If Boolean(FWindowList.Objects[iIndex]) Then
         Begin
-          P := TDGHIDEFontFunctions.AddMsg(Format(strProcessingForm, [F.Name, F.ClassName]), clNavy, [],
-            Nil);
+          P := Nil;
           If CompareText(F.Font.Name, FSettings.FFontName) <> 0 Then
             Begin
               F.Font.Name := FSettings.FFontName;
+              OutputFormMsg(P ,F);
               TDGHIDEFontFunctions.AddMsg(Format(strFontName, [F.ClassName, F.Name,
-                FSettings.FFontName]), clBlue, [], P.MsgPtr);
+                FSettings.FFontName]), FSettings.FFontAttrColour, [], P.MsgPtr);
             End;
           If F.Font.Size <> FSettings.FFontSize Then
             Begin
               F.Font.Size := FSettings.FFontSize;
+              OutputFormMsg(P, F);
               TDGHIDEFontFunctions.AddMsg(Format(strFontSize, [F.ClassName, F.Name,
-                FSettings.FFontSize]), clBlue, [], P.MsgPtr);
+                FSettings.FFontSize]), FSettings.FFontAttrColour, [], P.MsgPtr);
             End;
           If FSettings.FParentFont Then
-            UpdateParentFont(F, P.MsgPtr);
+            UpdateParentFont(F, P);
         End;
     End;
   FHasRunBefore := True;

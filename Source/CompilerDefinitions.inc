@@ -5,7 +5,7 @@
   available.
 
   @Version 1.0
-  @Date    08 Jun 2018
+  @Date    24 Nov 2018
   @Author  David Hoyle
 
 **)
@@ -440,6 +440,35 @@
   {$DEFINE DXE100}
   {$DEFINE DXE101}
   {$DEFINE DXE102}
+{$ENDIF}
+
+// Embarcadero Delphi XE10.3 Rio (Studio 20.0), Version 26, Package version 260
+{$IFDEF VER330}
+  {$DEFINE D0001}
+  {$DEFINE D0002}
+  {$DEFINE D0003}
+  {$DEFINE D0004}
+  {$DEFINE D0005}
+  {$DEFINE D0006}
+  {$DEFINE D0007}
+  {$DEFINE D0008}
+  {$DEFINE D2005}
+  {$DEFINE D2006}
+  {$DEFINE D2007}
+  {$DEFINE D2009}
+  {$DEFINE D2010}
+  {$DEFINE DXE00}
+  {$DEFINE DXE20}
+  {$DEFINE DXE30}
+  {$DEFINE DXE40}
+  {$DEFINE DXE50}
+  {$DEFINE DXE60}
+  {$DEFINE DXE70}
+  {$DEFINE DXE80}
+  {$DEFINE DXE100}
+  {$DEFINE DXE101}
+  {$DEFINE DXE102}
+  {$DEFINE DXE103}
 {$ENDIF}
 
 {$IFNDEF D0001}
