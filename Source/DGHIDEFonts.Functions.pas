@@ -3,8 +3,8 @@
   This module defines a record to encapsulate general functions for use throughout the application.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    14 Jul 2018
+  @Version 1.001
+  @Date    06 Jan 2022
   
 **)
 Unit DGHIDEFonts.Functions;
@@ -24,7 +24,7 @@ Type
     FBuild  : Integer;
   End;
 
-  (** A record to ena=capsulate functions for use throughout the expert. **)
+  (** A record to encapsulate functions for use throughout the expert. **)
   TDGHIDEFontFunctions = Record
   Strict Private
   Public
@@ -51,7 +51,7 @@ ResourceString
 
   This method creates a custom message adds it to the IDe message view.
 
-  @precon  If ptrParentMsg is specificed it must pointer to a valid message instance.
+  @precon  If ptrParentMsg is specified it must pointer to a valid message instance.
   @postcon Create a custom message with the option parent as a message.
 
   @param   strMsg       as a String as a constant
@@ -86,7 +86,7 @@ End;
 
 (**
 
-  This method returns the build number information for the geivne executable file.
+  This method returns the build number information for the given executable file.
 
   @precon  None.
   @postcon The build number information for the executable is returned.

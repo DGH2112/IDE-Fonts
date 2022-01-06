@@ -1,11 +1,11 @@
 (**
   
-  This module contains a class that imlpements custom messages in the IDE so that the messages can be
+  This module contains a class that implements custom messages in the IDE so that the messages can be
   nested.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    24 Nov 2018
+  @Version 1.002
+  @Date    06 Jan 2022
   
 **)
 Unit DGHIDEFonts.CustomMessage;
@@ -152,7 +152,7 @@ End;
 
 (**
 
-  This is a getter method for the ColumnNumber property.
+  This is a getter method for the Column Number property.
 
   @precon  None.
   @postcon Returns 0 as we are not using this interface property.
@@ -171,7 +171,7 @@ End;
   This is a getter method for the FileName property.
 
   @precon  None.
-  @postcon Returns a nul string as we are not using this interface property.
+  @postcon Returns a null string as we are not using this interface property.
 
   @return  a String
 
@@ -184,7 +184,7 @@ End;
 
 (**
 
-  This is a getter method for the LineNumber property.
+  This is a getter method for the Line Number property.
 
   @precon  None.
   @postcon returns zero as we are not using this property
@@ -200,7 +200,7 @@ End;
 
 (**
 
-  This is a getter method for the LineText property.
+  This is a getter method for the Line Text property.
 
   @precon  None.
   @postcon We return a null string here due to not using this interface property.
@@ -216,7 +216,7 @@ End;
 
 (**
 
-  This is a getter method for the MsgPtr property.
+  This is a getter method for the Message Pointer property.
 
   @precon  None.
   @postcon Returns the message pointer for this message.
@@ -232,7 +232,7 @@ End;
 
 (**
 
-  This is a setter method for the MsgPtr property.
+  This is a setter method for the Message Pointer property.
 
   @precon  None.
   @postcon Sets the message pointer.

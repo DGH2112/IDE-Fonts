@@ -1,9 +1,9 @@
 (**
   
-  This module contains the code for adding a splash screen entry to the IDE on startup.
+  This module contains the code for adding a splash screen entry to the IDE on start-up.
 
   @Author  David Hoyle
-  @Version 1.103
+  @Version 1.104
   @Date    06 Jan 2022
   
 **)
@@ -12,7 +12,7 @@ Unit DGHIDEFonts.SplashScreen;
 Interface
 
 Type
-  (** A record to encapsulate the splasn screen functionality. **)
+  (** A record to encapsulate the splash screen functionality. **)
   TDGHIDEFontSplashScreen = Record
   Strict Private
   Public
@@ -35,7 +35,7 @@ Uses
 
 (**
 
-  This method adds a splash screen to the IDE startup screen.
+  This method adds a splash screen to the IDE start-up screen.
 
   @precon  None.
   @postcon The splash screen is added.

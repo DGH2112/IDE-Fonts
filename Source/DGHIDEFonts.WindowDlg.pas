@@ -1,10 +1,10 @@
 (**
   
-  This module contains a dialogue for configuring which windiws in the IDE are updated.
+  This module contains a dialogue for configuring which forms/windows in the IDE are updated.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    24 Nov 2018
+  @Version 1.002
+  @Date    06 Jan 2022
   
 **)
 Unit DGHIDEFonts.WindowDlg;

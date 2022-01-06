@@ -1,10 +1,10 @@
 (**
   
-  This module defines the main wizxard interface for this RAD Studio IDE expert.
+  This module defines the main wizard interface for this RAD Studio IDE expert.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    24 Nov 2018
+  @Version 1.007
+  @Date    06 Jan 2022
   
 **)
 Unit DGHIDEFonts.Wizard;
@@ -20,7 +20,7 @@ Uses
   DGHIDEFonts.WindowDlg;
 
 Type
-  (** A class which implements the IOTAWizard and ITAMenuWizard interfaces for the RAD Studio IDE
+  (** A class which implements the IOTAWizard and IOTAMenuWizard interfaces for the RAD Studio IDE
       expert. **)
   TDGHIDEFontWizard = Class(TInterfacedObject, IUnknown, IOTANotifier, IOTAWizard, IOTAMenuWizard)
   Strict Private
@@ -83,23 +83,23 @@ Uses
 Const
   (** A constant for the INI section name for storing the settings. **)
   strSetupINISection = 'Setup';
-  (** An ini key name for the Font Name. **)
+  (** An INI key name for the Font Name. **)
   strHasRunBeforeKey = 'HasRunBefore';
-  (** An ini key name for whether the expert hasw run before. **)
+  (** An INI key name for whether the expert has run before. **)
   strFontNameKey = 'FontName';
-  (** An ini key name for the Font Size. **)
+  (** An INI key name for the Font Size. **)
   strFontSizeKey = 'FontSize';
   (** An INI Section name for the Window List **)
   strWindowListINISection = 'WindowList';
-  (** An ini key for the parent font settings. **)
+  (** An INI key for the parent font settings. **)
   strParentFontKey = 'ParentFont';
-  (** An ini key for the delay interval settings. **)
+  (** An INI key for the delay interval settings. **)
   strIntervalKey = 'Interval';
-  (** An ini key for the colour of the form message. **)
+  (** An INI key for the colour of the form message. **)
   strFormFontColourKey = 'FormFontColour';
-  (** An ini key for the colour of the font attribute message. **)
+  (** An INI key for the colour of the font attribute message. **)
   strFontAttrColourKey = 'FontAttrColour';
-  (** An ini key for the colour of the Parent Font message. **)
+  (** An INI key for the colour of the Parent Font message. **)
   strParentFontColourKey = 'ParentFontColour';
 
 (**
@@ -153,10 +153,10 @@ End;
 
 (**
 
-  This function returns the users logon name as a String.
+  This function returns the users log-on name as a String.
 
   @precon  None.
-  @postcon Returns the users logon name as a String.
+  @postcon Returns the users log-on name as a String.
 
   @return  a String
 
@@ -206,8 +206,8 @@ End;
 
 (**
 
-  This mnethod build an INNI Filename for the application in the users profile with their username
-  asnd computer name for uniqueness.
+  This method build an INNI Filename for the application in the users profile with their username
+  and computer name for uniqueness.
 
   @precon  None.
   @postcon The INI Filename is constructed.
@@ -241,7 +241,7 @@ End;
 
 (**
 
-  A constructor for the TDGHIDEFont class.
+  A constructor for the TDGHIDEFontWizard class.
 
   @precon  None.
   @postcon Adds a splash screen to the IDE.
@@ -304,7 +304,7 @@ End;
   @postcon Contains code which is simply a proof of concept. Yes it works except that the form designer
            window is updated which we need to prevent. I think on first run of this expert is should
            present a dialogue with a list of the windows and ask the user to select the windows to
-           update. It should then automatically do this on startup however presenting the dialogue can
+           update. It should then automatically do this on start-up however presenting the dialogue can
            always be done from the Help menu to change the options.
 
 **)
@@ -382,7 +382,7 @@ End;
   This is a getter method for the State property.
 
   @precon  None.
-  @postcon Returns wsEnabled to signify to the IDE that this expert is enabled.
+  @postcon Returns Enabled to signify to the IDE that this expert is enabled.
 
   @return  a TWizardState
 
@@ -438,7 +438,7 @@ End;
   changed based on the information in the INI file.
 
   @precon  None.
-  @postcon The FWindowList strign list is loaded with window in the IDE.
+  @postcon The FWindowList string list is loaded with window in the IDE.
 
 **)
 Procedure TDGHIDEFontWizard.LoadWindowList;
@@ -571,8 +571,8 @@ End;
   This is an on timer event handler for the start timer.
 
   @precon  None.
-  @postcon Waits for the main AppBuilder form to appear and then either shoulds the dialogue for a first
-           time user for updates the windows fonts from previous session data.
+  @postcon Waits for the main Application Builder form to appear and then either shows the dialogue for
+           a first time user for updates the windows fonts from previous session data.
 
   @param   Sender as a TObject
 
@@ -607,11 +607,11 @@ Begin
 
 (**
 
-  This method updates the components on the form to ensure that they have their ParentFont property set 
+  This method updates the components on the form to ensure that they have their Parent Font property set 
   to True.
 
   @precon  F must be a valid instance.
-  @postcon All components with the ParentFont property have them set to True if False;
+  @postcon All components with the Parent Font property have them set to True if False;
 
   @param   F         as a TForm as a constant
   @param   ParentMsg as an IDGHIDEFontCustomMessage as a reference

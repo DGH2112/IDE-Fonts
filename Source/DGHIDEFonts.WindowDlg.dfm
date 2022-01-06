@@ -15,7 +15,6 @@ object frmWindowDlg: TfrmWindowDlg
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
   PixelsPerInch = 96
   TextHeight = 16
@@ -27,10 +26,6 @@ object frmWindowDlg: TfrmWindowDlg
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
-    ExplicitLeft = 152
-    ExplicitTop = 336
-    ExplicitWidth = 185
-    ExplicitHeight = 41
     DesignSize = (
       464
       669)
