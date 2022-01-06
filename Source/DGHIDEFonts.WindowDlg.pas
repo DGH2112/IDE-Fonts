@@ -3,7 +3,7 @@
   This module contains a dialogue for configuring which forms/windows in the IDE are updated.
 
   @Author  David Hoyle
-  @Version 1.002
+  @Version 1.005
   @Date    06 Jan 2022
   
 **)
@@ -25,7 +25,7 @@ Uses
   Buttons,
   ComCtrls,
   ImgList,
-  ExtCtrls;
+  ExtCtrls, System.ImageList;
 
 {$INCLUDE CompilerDefinitions.inc}
 
@@ -97,22 +97,22 @@ Class Function TfrmWindowDlg.Execute(Const slWindowList: TStringList;
 
 Var
   F: TfrmWindowDlg;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   ITS : IOTAIDEThemingServices250;
-  {$ENDIF}
+  {$ENDIF RS102}
 
 Begin
   Result := False;
   F := TfrmWindowDlg.Create(Application.MainForm);
   Try
-    {$IFDEF DXE102}
+    {$IFDEF RS102}
     If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
       If ITS.IDEThemingEnabled Then
         Begin
           ITS.RegisterFormClass(TfrmWindowDlg);
           ITS.ApplyTheme(F);
         End;
-    {$ENDIF}
+    {$ENDIF RS102}
     F.InitialiseDlg(slWindowList, Settings);
     If F.ShowModal = mrOK Then
       Begin

@@ -4,7 +4,7 @@
   nested.
 
   @Author  David Hoyle
-  @Version 1.002
+  @Version 1.005
   @Date    06 Jan 2022
   
 **)
@@ -30,9 +30,9 @@ Type
     FColour : TColor;
     FStyles : TFontStyles;
     FMsgPtr : Pointer;
-    {$IFDEF DXE102}
+    {$IFDEF RS102}
     FStyleServices : TCustomStyleServices;
-    {$ENDIF}
+    {$ENDIF RS102}
   Strict Protected
     // IOTA Custom Message
     Function  GetColumnNumber: Integer;
@@ -98,22 +98,22 @@ End;
 Constructor TDGHIDEFontCustomMessage.Create(Const strMsg: String; Const iColour: TColor;
   Const setStyles: TFontStyles);
 
-{$IFDEF DXE102}
+{$IFDEF RS102}
 Var
   ITS : IOTAIDEThemingServices;
-{$ENDIF}
+{$ENDIF RS102}
 
 Begin
   FMsg := strMsg;
   FColour := iColour;
   FStyles := setStyles;
   FMsgPtr := Nil;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   FStyleServices := Nil;
   If Supports(BorlandIDEServices, IOTAIDEThemingServices, ITS) Then
     If ITS.IDEThemingEnabled Then
       FStyleServices := ITS.StyleServices;
-  {$ENDIF}
+  {$ENDIF RS102}
 End;
 
 (**
@@ -140,11 +140,11 @@ Var
 Begin
   R := Rect;
   strMsg := FMsg;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   If Assigned(FStyleServices) Then
     Canvas.Font.Color := FStyleServices.GetSystemColor(FColour)
   Else
-  {$ENDIF}
+  {$ENDIF RS102}
     Canvas.Font.Color := FColour;
   Canvas.Font.Style := FStyles;
   Canvas.TextRect(R, strMsg, [tfLeft, tfVerticalCenter, tfEndEllipsis]);
