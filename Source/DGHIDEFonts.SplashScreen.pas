@@ -3,7 +3,7 @@
   This module contains the code for adding a splash screen entry to the IDE on start-up.
 
   @Author  David Hoyle
-  @Version 1.185
+  @Version 1.188
   @Date    06 Jan 2022
   
   @license
@@ -65,9 +65,9 @@ Class Procedure TDGHIDEFontSplashScreen.AddSplashScreen;
 ResourceString
   strSplashScreenName = 'DGH IDE Fonts %d.%d%s for %s';
   {$IFDEF DEBUG}
-  strSplashScreenBuild = 'Freeware by David Hoyle (DEBUG Build %d.%d.%d.%d)';
+  strSplashScreenBuild = 'David Hoyle (c) 2022 License GNU GPL3 (DEBUG Build %d.%d.%d.%d)';
   {$ELSE}
-  strSplashScreenBuild = 'Freeware by David Hoyle (Build %d.%d.%d.%d)';
+  strSplashScreenBuild = 'David Hoyle (c) 2022 License GNU GPL3 (Build %d.%d.%d.%d)';
   {$ENDIF}
 
 Const
