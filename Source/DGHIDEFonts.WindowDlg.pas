@@ -25,7 +25,7 @@ Uses
   Buttons,
   ComCtrls,
   ImgList,
-  ExtCtrls, System.ImageList;
+  ExtCtrls;
 
 {$INCLUDE CompilerDefinitions.inc}
 
