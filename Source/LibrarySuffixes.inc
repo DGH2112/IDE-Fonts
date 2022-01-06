@@ -2,61 +2,88 @@
 
   An include unit to define library suffixes for all the version of RAD Studio.
 
-  @Version 1.0
-  @Date    20 Sep 2018
+  @Version 1.124
+  @Date    06 Jan 2022
   @Author  David Hoyle
+
+  @license
+  
+    DGH IDE Fonts is a RAD Studio plug-in to provide the ability to change the
+    size of the fonts in the IDE.
+    
+    Copyright (C) 2022  David Hoyle (https://github.com/DGH2112/IDE-Fonts/)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
 
 **)
 
-{$IFDEF DXE103}
-  {$LIBSUFFIX 'XE103'}
+{$IFDEF RS110}
+  {$LIBSUFFIX 'RS110'}
 {$ELSE}
-  {$IFDEF DXE102}
-    {$LIBSUFFIX 'XE102'}
+  {$IFDEF RS104}
+    {$LIBSUFFIX 'RS104'}
   {$ELSE}
-    {$IFDEF DXE101}
-      {$LIBSUFFIX 'XE101'}
+    {$IFDEF RS103}
+      {$LIBSUFFIX 'RS103'}
     {$ELSE}
-      {$IFDEF DXE100}
-        {$LIBSUFFIX 'XE10'}
+      {$IFDEF RS102}
+        {$LIBSUFFIX 'RS102'}
       {$ELSE}
-        {$IFDEF DXE80}
-          {$LIBSUFFIX 'XE8'}
+        {$IFDEF RS101}
+          {$LIBSUFFIX 'RS101'}
         {$ELSE}
-          {$IFDEF DXE70}
-            {$LIBSUFFIX 'XE7'}
+          {$IFDEF RS100}
+            {$LIBSUFFIX 'RS100'}
           {$ELSE}
-            {$IFDEF DXE60}
-              {$LIBSUFFIX 'XE6'}
+            {$IFDEF DXE80}
+              {$LIBSUFFIX 'XE8'}
             {$ELSE}
-              {$IFDEF DXE50}
-                {$LIBSUFFIX 'XE5'}
+              {$IFDEF DXE70}
+                {$LIBSUFFIX 'XE7'}
               {$ELSE}
-                {$IFDEF DXE40}
-                  {$LIBSUFFIX 'XE4'}
+                {$IFDEF DXE60}
+                  {$LIBSUFFIX 'XE6'}
                 {$ELSE}
-                  {$IFDEF DXE30}
-                    {$LIBSUFFIX 'XE3'}
+                  {$IFDEF DXE50}
+                    {$LIBSUFFIX 'XE5'}
                   {$ELSE}
-                    {$IFDEF DXE20}
-                      {$LIBSUFFIX 'XE2'}
+                    {$IFDEF DXE40}
+                      {$LIBSUFFIX 'XE4'}
                     {$ELSE}
-                      {$IFDEF DXE00}
-                        {$LIBSUFFIX 'XE'}
+                      {$IFDEF DXE30}
+                        {$LIBSUFFIX 'XE3'}
                       {$ELSE}
-                        {$IFDEF D2010}
-                          {$LIBSUFFIX '2010'}
+                        {$IFDEF DXE20}
+                          {$LIBSUFFIX 'XE2'}
                         {$ELSE}
-                          {$IFDEF D2009}
-                            {$LIBSUFFIX '2009'}
+                          {$IFDEF DXE00}
+                            {$LIBSUFFIX 'XE'}
                           {$ELSE}
-                            {$IFDEF D2007}
-                              {$LIBSUFFIX '2007'}
+                            {$IFDEF D2010}
+                              {$LIBSUFFIX '2010'}
                             {$ELSE}
-                              {$IFDEF D2006}
-                                {$LIBSUFFIX '2006'}
+                              {$IFDEF D2009}
+                                {$LIBSUFFIX '2009'}
                               {$ELSE}
-                                {$MESSAGE ERROR 'The Condition Definitions need to be updated!!!!!'}
+                                {$IFDEF D2007}
+                                  {$LIBSUFFIX '2007'}
+                                {$ELSE}
+                                  {$IFDEF D2006}
+                                    {$LIBSUFFIX '2006'}
+                                  {$ELSE}
+                                    {$MESSAGE ERROR 'The Condition Definitions need to be updated!!!!!'}
+                                  {$ENDIF}
+                                {$ENDIF}
                               {$ENDIF}
                             {$ENDIF}
                           {$ENDIF}
@@ -73,3 +100,4 @@
     {$ENDIF}
   {$ENDIF}
 {$ENDIF}
+    

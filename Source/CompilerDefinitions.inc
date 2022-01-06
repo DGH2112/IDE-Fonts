@@ -4,9 +4,28 @@
   definition exists it means that that version of the compiler or high is
   available.
 
-  @Version 1.0
-  @Date    24 Nov 2018
+  @Version 1.209
+  @Date    06 Jan 2022
   @Author  David Hoyle
+
+  @license
+  
+    DGH IDE Fonts is a RAD Studio plug-in to provide the ability to change the
+    size of the fonts in the IDE.
+    
+    Copyright (C) 2022  David Hoyle (https://github.com/DGH2112/IDE-Fonts/)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
 
 **)
 
@@ -384,7 +403,7 @@
   {$DEFINE DXE60}
   {$DEFINE DXE70}
   {$DEFINE DXE80}
-  {$DEFINE DXE100}
+  {$DEFINE RS100}
 {$ENDIF}
 
 // Embarcadero Delphi XE10.1 Berlin (Studio 18.0), Version 24, Package version 240
@@ -410,8 +429,8 @@
   {$DEFINE DXE60}
   {$DEFINE DXE70}
   {$DEFINE DXE80}
-  {$DEFINE DXE100}
-  {$DEFINE DXE101}
+  {$DEFINE RS100}
+  {$DEFINE RS101}
 {$ENDIF}
 
 // Embarcadero Delphi XE10.2 Tokyo (Studio 19.0), Version 25, Package version 250
@@ -437,9 +456,9 @@
   {$DEFINE DXE60}
   {$DEFINE DXE70}
   {$DEFINE DXE80}
-  {$DEFINE DXE100}
-  {$DEFINE DXE101}
-  {$DEFINE DXE102}
+  {$DEFINE RS100}
+  {$DEFINE RS101}
+  {$DEFINE RS102}
 {$ENDIF}
 
 // Embarcadero Delphi XE10.3 Rio (Studio 20.0), Version 26, Package version 260
@@ -465,10 +484,71 @@
   {$DEFINE DXE60}
   {$DEFINE DXE70}
   {$DEFINE DXE80}
-  {$DEFINE DXE100}
-  {$DEFINE DXE101}
-  {$DEFINE DXE102}
-  {$DEFINE DXE103}
+  {$DEFINE RS100}
+  {$DEFINE RS101}
+  {$DEFINE RS102}
+  {$DEFINE RS103}
+{$ENDIF}
+
+// Embarcadero Delphi XE10.4 Sydney (Studio 21.0), Version 27, Package version 270
+{$IFDEF VER340}
+  {$DEFINE D0001}
+  {$DEFINE D0002}
+  {$DEFINE D0003}
+  {$DEFINE D0004}
+  {$DEFINE D0005}
+  {$DEFINE D0006}
+  {$DEFINE D0007}
+  {$DEFINE D0008}
+  {$DEFINE D2005}
+  {$DEFINE D2006}
+  {$DEFINE D2007}
+  {$DEFINE D2009}
+  {$DEFINE D2010}
+  {$DEFINE DXE00}
+  {$DEFINE DXE20}
+  {$DEFINE DXE30}
+  {$DEFINE DXE40}
+  {$DEFINE DXE50}
+  {$DEFINE DXE60}
+  {$DEFINE DXE70}
+  {$DEFINE DXE80}
+  {$DEFINE RS100}
+  {$DEFINE RS101}
+  {$DEFINE RS102}
+  {$DEFINE RS103}
+  {$DEFINE RS104}
+{$ENDIF}
+
+// Embarcadero Delphi 11.0 Alexandria (Studio 22.0), Version 28, Package version 280
+{$IFDEF VER350}
+  {$DEFINE D0001}
+  {$DEFINE D0002}
+  {$DEFINE D0003}
+  {$DEFINE D0004}
+  {$DEFINE D0005}
+  {$DEFINE D0006}
+  {$DEFINE D0007}
+  {$DEFINE D0008}
+  {$DEFINE D2005}
+  {$DEFINE D2006}
+  {$DEFINE D2007}
+  {$DEFINE D2009}
+  {$DEFINE D2010}
+  {$DEFINE DXE00}
+  {$DEFINE DXE20}
+  {$DEFINE DXE30}
+  {$DEFINE DXE40}
+  {$DEFINE DXE50}
+  {$DEFINE DXE60}
+  {$DEFINE DXE70}
+  {$DEFINE DXE80}
+  {$DEFINE RS100}
+  {$DEFINE RS101}
+  {$DEFINE RS102}
+  {$DEFINE RS103}
+  {$DEFINE RS104}
+  {$DEFINE RS110}
 {$ENDIF}
 
 {$IFNDEF D0001}

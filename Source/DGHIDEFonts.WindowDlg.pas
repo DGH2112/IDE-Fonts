@@ -1,11 +1,30 @@
 (**
   
-  This module contains a dialogue for configuring which windiws in the IDE are updated.
+  This module contains a dialogue for configuring which forms/windows in the IDE are updated.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    24 Nov 2018
+  @Version 1.088
+  @Date    06 Jan 2022
   
+  @license
+  
+    DGH IDE Fonts is a RAD Studio plug-in to provide the ability to change the
+    size of the fonts in the IDE.
+    
+    Copyright (C) 2022  David Hoyle (https://github.com/DGH2112/IDE-Fonts/)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+
 **)
 Unit DGHIDEFonts.WindowDlg;
 
@@ -97,22 +116,22 @@ Class Function TfrmWindowDlg.Execute(Const slWindowList: TStringList;
 
 Var
   F: TfrmWindowDlg;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   ITS : IOTAIDEThemingServices250;
-  {$ENDIF}
+  {$ENDIF RS102}
 
 Begin
   Result := False;
   F := TfrmWindowDlg.Create(Application.MainForm);
   Try
-    {$IFDEF DXE102}
+    {$IFDEF RS102}
     If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
       If ITS.IDEThemingEnabled Then
         Begin
           ITS.RegisterFormClass(TfrmWindowDlg);
           ITS.ApplyTheme(F);
         End;
-    {$ENDIF}
+    {$ENDIF RS102}
     F.InitialiseDlg(slWindowList, Settings);
     If F.ShowModal = mrOK Then
       Begin

@@ -1,12 +1,31 @@
 (**
   
-  This module contains a class that imlpements custom messages in the IDE so that the messages can be
+  This module contains a class that implements custom messages in the IDE so that the messages can be
   nested.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    24 Nov 2018
+  @Version 1.086
+  @Date    06 Jan 2022
   
+  @license
+  
+    DGH IDE Fonts is a RAD Studio plug-in to provide the ability to change the
+    size of the fonts in the IDE.
+    
+    Copyright (C) 2022  David Hoyle (https://github.com/DGH2112/IDE-Fonts/)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+
 **)
 Unit DGHIDEFonts.CustomMessage;
 
@@ -30,9 +49,9 @@ Type
     FColour : TColor;
     FStyles : TFontStyles;
     FMsgPtr : Pointer;
-    {$IFDEF DXE102}
+    {$IFDEF RS102}
     FStyleServices : TCustomStyleServices;
-    {$ENDIF}
+    {$ENDIF RS102}
   Strict Protected
     // IOTA Custom Message
     Function  GetColumnNumber: Integer;
@@ -98,22 +117,22 @@ End;
 Constructor TDGHIDEFontCustomMessage.Create(Const strMsg: String; Const iColour: TColor;
   Const setStyles: TFontStyles);
 
-{$IFDEF DXE102}
+{$IFDEF RS102}
 Var
   ITS : IOTAIDEThemingServices;
-{$ENDIF}
+{$ENDIF RS102}
 
 Begin
   FMsg := strMsg;
   FColour := iColour;
   FStyles := setStyles;
   FMsgPtr := Nil;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   FStyleServices := Nil;
   If Supports(BorlandIDEServices, IOTAIDEThemingServices, ITS) Then
     If ITS.IDEThemingEnabled Then
       FStyleServices := ITS.StyleServices;
-  {$ENDIF}
+  {$ENDIF RS102}
 End;
 
 (**
@@ -140,11 +159,11 @@ Var
 Begin
   R := Rect;
   strMsg := FMsg;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   If Assigned(FStyleServices) Then
     Canvas.Font.Color := FStyleServices.GetSystemColor(FColour)
   Else
-  {$ENDIF}
+  {$ENDIF RS102}
     Canvas.Font.Color := FColour;
   Canvas.Font.Style := FStyles;
   Canvas.TextRect(R, strMsg, [tfLeft, tfVerticalCenter, tfEndEllipsis]);
@@ -152,7 +171,7 @@ End;
 
 (**
 
-  This is a getter method for the ColumnNumber property.
+  This is a getter method for the Column Number property.
 
   @precon  None.
   @postcon Returns 0 as we are not using this interface property.
@@ -171,7 +190,7 @@ End;
   This is a getter method for the FileName property.
 
   @precon  None.
-  @postcon Returns a nul string as we are not using this interface property.
+  @postcon Returns a null string as we are not using this interface property.
 
   @return  a String
 
@@ -184,7 +203,7 @@ End;
 
 (**
 
-  This is a getter method for the LineNumber property.
+  This is a getter method for the Line Number property.
 
   @precon  None.
   @postcon returns zero as we are not using this property
@@ -200,7 +219,7 @@ End;
 
 (**
 
-  This is a getter method for the LineText property.
+  This is a getter method for the Line Text property.
 
   @precon  None.
   @postcon We return a null string here due to not using this interface property.
@@ -216,7 +235,7 @@ End;
 
 (**
 
-  This is a getter method for the MsgPtr property.
+  This is a getter method for the Message Pointer property.
 
   @precon  None.
   @postcon Returns the message pointer for this message.
@@ -232,7 +251,7 @@ End;
 
 (**
 
-  This is a setter method for the MsgPtr property.
+  This is a setter method for the Message Pointer property.
 
   @precon  None.
   @postcon Sets the message pointer.
