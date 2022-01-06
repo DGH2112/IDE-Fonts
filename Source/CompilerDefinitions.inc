@@ -4,9 +4,28 @@
   definition exists it means that that version of the compiler or high is
   available.
 
-  @Version 1.128
+  @Version 1.209
   @Date    06 Jan 2022
   @Author  David Hoyle
+
+  @license
+  
+    DGH IDE Fonts is a RAD Studio plug-in to provide the ability to change the
+    size of the fonts in the IDE.
+    
+    Copyright (C) 2022  David Hoyle (https://github.com/DGH2112/IDE-Fonts/)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
 
 **)
 
