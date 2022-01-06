@@ -3,8 +3,8 @@
   This module contains the code for adding a splash screen entry to the IDE on startup.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    14 Jul 2018
+  @Version 1.103
+  @Date    06 Jan 2022
   
 **)
 Unit DGHIDEFonts.SplashScreen;
@@ -21,10 +21,15 @@ Type
   
 Implementation
 
+{$INCLUDE CompilerDefinitions.inc}
+
 Uses
   ToolsAPI,
   SysUtils,
   Forms,
+  {$IFDEF RS110}
+  Graphics,
+  {$ENDIF RS110}
   Windows,
   DGHIDEFonts.Functions;
 
@@ -52,35 +57,40 @@ Const
 
 Var
   SSS : IOTASplashScreenServices;
-  bmSplashScreen : HBITMAP;
+  bmSplashScreen : {$IFDEF RS110} Graphics.TBitMap {$ELSE} HBITMAP {$ENDIF RS110};
   BuildInfo : TBuildInfo;
   strModuleName: String;
   iSize: Cardinal;
   
 Begin
-  bmSplashScreen := LoadBitmap(hInstance, strDGHIDEFontSplashScreen);
   SetLength(strModuleName, MAX_PATH);
   iSize := GetModuleFileName(hInstance, PChar(strModuleName), MAX_PATH);
   SetLength(strModuleName, iSize);
   BuildInfo := TDGHIDEFontFunctions.BuildNumber(strModuleName);
   If Supports(SplashScreenServices, IOTASplashScreenServices, SSS) Then
     Begin
+      {$IFDEF RS110}
+      bmSplashScreen := Graphics.TBitMap.Create;
+      Try
+        bmSplashScreen.LoadFromResourceName(hInstance, strDGHIDEFontSplashScreen);
+        SSS.AddPluginBitmap(
+          Format(strSplashScreenName, [BuildInfo.FMajor, BuildInfo.FMinor, Copy(strRevisions, Succ(BuildInfo.FBugfix), 1), Application.Title]),
+          [bmSplashScreen],
+          {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
+          Format(strSplashScreenBuild, [BuildInfo.FMajor, BuildInfo.FMinor, BuildInfo.FBugfix, BuildInfo.FBuild])
+        );
+      Finally
+        bmSplashScreen.Free;
+      End;
+      {$ELSE}
+      bmSplashScreen := LoadBitmap(hInstance, strDGHIDEFontSplashScreen);
       SSS.AddPluginBitmap(
-        Format(strSplashScreenName, [
-          BuildInfo.FMajor,
-          BuildInfo.FMinor,
-          Copy(strRevisions, Succ(BuildInfo.FBugfix), 1),
-          Application.Title
-        ]),
+        Format(strSplashScreenName, [BuildInfo.FMajor, BuildInfo.FMinor, Copy(strRevisions, Succ(BuildInfo.FBugfix), 1), Application.Title]),
         bmSplashScreen,
         {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
-        Format(strSplashScreenBuild, [
-          BuildInfo.FMajor,
-          BuildInfo.FMinor,
-          BuildInfo.FBugfix,
-          BuildInfo.FBuild
-        ])
+        Format(strSplashScreenBuild, [BuildInfo.FMajor, BuildInfo.FMinor, BuildInfo.FBugfix, BuildInfo.FBuild])
       );
+      {$ENDIF RS110}
     End;
 End;
 
